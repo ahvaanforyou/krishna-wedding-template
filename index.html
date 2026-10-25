@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hemanth & Yashaswini | Wedding Invitation</title>
+  <meta name="description" content="Wedding celebration invitation of Hemanth and Yashaswini with the divine blessings of Radha Krishna.">
+
+  <!-- Google Fonts: Luxury Serif, Romantic Script & Clean Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;600;700;800&family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Marcellus&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-krishna">
+
+  <!-- Floating Falling Petals & Sparkles Canvas -->
+  <canvas id="petals-canvas"></canvas>
+
+  <!-- Sticky Top Quick Controls Bar -->
+  <aside class="quick-toolbar" aria-label="Toolbar">
+    <div class="toolbar-brand">
+      <span class="krishna-symbol">🪈</span>
+      <span class="brand-text">H & Y</span>
+    </div>
+
+    <div class="toolbar-actions">
+      <!-- Ambient Audio Toggle -->
+      <button id="btn-audio" class="toolbar-btn" title="Toggle Divine Flute Melody" aria-label="Toggle Flute Music">
+        <i data-lucide="volume-2" class="icon-music-on"></i>
+        <i data-lucide="volume-x" class="icon-music-off hidden"></i>
+        <span class="btn-text">Bansuri</span>
+      </button>
+
+      <!-- Falling Petals Toggle -->
+      <button id="btn-petals" class="toolbar-btn" title="Toggle Falling Petals" aria-label="Toggle Petals">
+        <i data-lucide="sparkles"></i>
+        <span class="btn-text">Petals</span>
+      </button>
+
+      <!-- View Switcher (Laptop / Phone Preview) -->
+      <button id="btn-view-mode" class="toolbar-btn highlight" title="Toggle Laptop vs Phone Preview" aria-label="Toggle View Mode">
+        <i data-lucide="smartphone" class="icon-phone"></i>
+        <i data-lucide="laptop" class="icon-laptop hidden"></i>
+        <span class="btn-text" id="view-mode-label">Phone View</span>
+      </button>
+
+      <!-- Live Customizer Trigger -->
+      <button id="btn-open-editor" class="toolbar-btn gold-btn" title="Customize Names, Dates & Photos" aria-label="Customize Invite">
+        <i data-lucide="settings-2"></i>
+        <span class="btn-text">Customize</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Application Wrapper (Supports Desktop Wide and Phone Simulation Mode) -->
+  <div id="app-wrapper" class="app-wrapper desktop-view">
+
+    <!-- Phone Frame Shell (Only active in Phone View mode on large screens) -->
+    <div class="phone-frame-container">
+      <div class="phone-speaker"></div>
+      <div class="phone-screen-content">
+
+        <!-- ============================================== -->
+        <!-- 1. HERO SECTION -->
+        <!-- ============================================== -->
+        <section id="hero" class="invitation-section hero-section">
+          <!-- Top Divine Invocation -->
+          <div class="divine-invocation anim-blur" data-delay="100">
+            <span class="om-symbol">|| श्री गणेशाय नमः || श्री राधा-कृष्णाय नमः ||</span>
+            <div class="peacock-motif-top">
+              <img src="assets/peacock-feather.png" alt="Peacock Feather Motif" class="feather-ornament" />
+            </div>
+          </div>
+
+          <!-- Couple Header Typography -->
+          <div class="couple-title-container anim-blur" data-delay="200">
+            <h1 class="groom-name editable-field" data-key="groomName">Hemanth</h1>
+            <div class="weds-badge">
+              <span class="flourish-line left"></span>
+              <span class="weds-text">weds</span>
+              <span class="flourish-line right"></span>
+            </div>
+            <h1 class="bride-name editable-field" data-key="brideName">Yashaswini</h1>
+          </div>
+
+          <!-- Auspicious Spaced Date -->
+          <div class="wedding-date-banner anim-blur" data-delay="300">
+            <span class="date-ornament-dot">✦</span>
+            <span class="wedding-date-text editable-field" data-key="weddingDateDisplay">0 1 &nbsp; N O V E M B E R &nbsp; 2 0 2 6</span>
+            <span class="date-ornament-dot">✦</span>
+          </div>
+
+          <!-- Radha Krishna Hero Illustration -->
+          <div class="hero-image-wrapper anim-blur" data-delay="400">
+            <div class="divine-aura-glow"></div>
+            <img 
+              src="assets/hero-radha-krishna.png" 
+              alt="Radha Krishna Divine Blessings" 
+              class="hero-radha-krishna-img hover-float" 
+            />
+            <div class="hero-flower-decor"></div>
+          </div>
+
+          <!-- Auspicious Vedic Shloka -->
+          <div class="shloka-box anim-blur" data-delay="500">
+            <p class="shloka-sanskrit">"राधा कृष्ण करुणा सिंधु दीनबंधु जगत्पते |<br>गोपेश गोपिका कांत राधा कांत नमोस्तुते ||"</p>
+            <p class="shloka-meaning">May the divine grace of Radha and Krishna illuminate their union with eternal love, harmony, and joy.</p>
+          </div>
+
+          <!-- Live Wedding Countdown -->
+          <div class="countdown-container anim-blur" data-delay="600">
+            <div class="countdown-label">Counting Down to the Sacred Union</div>
+            <div class="countdown-timer" id="wedding-countdown">
+              <div class="time-block">
+                <span class="time-num" id="cd-days">00</span>
+                <span class="time-text">Days</span>
+              </div>
+              <span class="time-separator">:</span>
+              <div class="time-block">
+                <span class="time-num" id="cd-hours">00</span>
+                <span class="time-text">Hours</span>
+              </div>
+              <span class="time-separator">:</span>
+              <div class="time-block">
+                <span class="time-num" id="cd-minutes">00</span>
+                <span class="time-text">Minutes</span>
+              </div>
+              <span class="time-separator">:</span>
+              <div class="time-block">
+                <span class="time-num" id="cd-seconds">00</span>
+                <span class="time-text">Seconds</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- 2. MEET THE BRIDE & GROOM SECTION -->
+        <!-- ============================================== -->
+        <section id="couple" class="invitation-section couple-section">
+          <div class="section-badge anim-blur">
+            <span class="badge-text">Two Souls, One Sacred Bond</span>
+          </div>
+          <h2 class="section-title anim-blur">The Bride & Groom</h2>
+          <div class="section-divider anim-blur">
+            <span class="divider-line"></span>
+            <span class="divider-icon">❧</span>
+            <span class="divider-line"></span>
+          </div>
+
+          <div class="couple-cards-grid">
+            <!-- 2A. BRIDE CARD (Baby Krishna Peeking from Left) -->
+            <div class="couple-card-row bride-row anim-blur" data-delay="150">
+              <!-- Krishna Peeking Asset from Left Edge -->
+              <div class="peeking-character krishna-peek">
+                <img 
+                  src="assets/krishna-peeking.png" 
+                  alt="Little Krishna Peeking" 
+                  class="character-peek-img hover-wiggle" 
+                />
+              </div>
+
+              <!-- Bride Photo Card -->
+              <div class="photo-frame-card bride-frame hover-lift" id="bride-card">
+                <div class="frame-corner corner-tl"></div>
+                <div class="frame-corner corner-tr"></div>
+                <div class="frame-corner corner-bl"></div>
+                <div class="frame-corner corner-br"></div>
+                
+                <div class="photo-container">
+                  <img 
+                    src="assets/bride-sample.png" 
+                    alt="Bride Portrait" 
+                    id="bride-photo-img" 
+                    class="portrait-img" 
+                  />
+                  <div class="photo-placeholder-overlay">
+                    <span class="placeholder-tag font-script editable-field" data-key="brideCardTitle">Bride Pic</span>
+                    <button class="btn-change-photo" onclick="triggerPhotoUpload('bride')" title="Upload Bride Photo">
+                      <i data-lucide="camera"></i> Change Photo
+                    </button>
+                  </div>
+                </div>
+
+                <div class="profile-info">
+                  <h3 class="profile-name editable-field" data-key="brideFullName">Yashaswini</h3>
+                  <p class="profile-role">The Lovely Bride</p>
+                  <p class="profile-parents editable-field" data-key="brideParents">Daughter of Smt. Lakshmi & Sri Venkatesh</p>
+                  <p class="profile-bio editable-field" data-key="brideBio">"A heart brimming with laughter, kindness, and devotion, ready to embark on this beautiful sacred journey."</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2B. GROOM CARD (Baby Radha Peeking from Right) -->
+            <div class="couple-card-row groom-row anim-blur" data-delay="300">
+              <!-- Groom Photo Card -->
+              <div class="photo-frame-card groom-frame hover-lift" id="groom-card">
+                <div class="frame-corner corner-tl"></div>
+                <div class="frame-corner corner-tr"></div>
+                <div class="frame-corner corner-bl"></div>
+                <div class="frame-corner corner-br"></div>
+
+                <div class="photo-container">
+                  <img 
+                    src="assets/groom-sample.png" 
+                    alt="Groom Portrait" 
+                    id="groom-photo-img" 
+                    class="portrait-img" 
+                  />
+                  <div class="photo-placeholder-overlay">
+                    <span class="placeholder-tag font-script editable-field" data-key="groomCardTitle">Groom pic</span>
+                    <button class="btn-change-photo" onclick="triggerPhotoUpload('groom')" title="Upload Groom Photo">
+                      <i data-lucide="camera"></i> Change Photo
+                    </button>
+                  </div>
+                </div>
+
+                <div class="profile-info">
+                  <h3 class="profile-name editable-field" data-key="groomFullName">Hemanth</h3>
+                  <p class="profile-role">The Handsome Groom</p>
+                  <p class="profile-parents editable-field" data-key="groomParents">Son of Smt. Parvathi & Sri Chandrashekar</p>
+                  <p class="profile-bio editable-field" data-key="groomBio">"Finding his sanctuary in her smile, thrilled to build a lifetime of cherished memories and endless happiness."</p>
+                </div>
+              </div>
+
+              <!-- Radha Peeking Asset from Right Edge -->
+              <div class="peeking-character radha-peek">
+                <img 
+                  src="assets/radha-peeking.png" 
+                  alt="Little Radha Peeking" 
+                  class="character-peek-img hover-wiggle" 
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Hidden File Inputs for Interactive Photo Customization -->
+          <input type="file" id="bride-file-input" accept="image/*" class="hidden" onchange="handlePhotoUpload(event, 'bride')" />
+          <input type="file" id="groom-file-input" accept="image/*" class="hidden" onchange="handlePhotoUpload(event, 'groom')" />
+        </section>
+
+        <!-- ============================================== -->
+        <!-- 3. INTERACTIVE SCRATCH TO REVEAL SECTION -->
+        <!-- ============================================== -->
+        <section id="scratch" class="invitation-section scratch-section">
+          <div class="scratch-card-wrapper anim-blur">
+            <div class="scratch-card-container" id="scratch-container">
+              
+              <!-- Revealed Layer Underneath (Sacred Blessing & Surprise) -->
+              <div class="scratch-revealed-content">
+                <div class="scratch-inner-border">
+                  <div class="scratch-badge">✦ Auspicious Muhurtham Unveiled ✦</div>
+                  <h3 class="scratch-main-title">Sumuhurtham & Special Gift</h3>
+                  
+                  <div class="muhurtham-highlight">
+                    <div class="muhurtham-time">10:24 AM</div>
+                    <div class="muhurtham-desc">Godhuli Vela | Dhanu Lagna | Rohini Nakshatra</div>
+                  </div>
+
+                  <p class="scratch-blessing-text">
+                    "Your presence is our sacred blessing. Present this divine code at the welcome desk to receive your handcrafted Vrindavan Prasad Box:"
+                  </p>
+
+                  <div class="secret-code-pill">
+                    <span class="code-label">Blessing Pass:</span>
+                    <strong class="code-value">#RADHE-SHYAM-2026</strong>
+                  </div>
+
+                  <div class="scratch-actions">
+                    <button class="btn-secondary-gold" onclick="copyBlessingCode()">
+                      <i data-lucide="copy"></i> Copy Pass Code
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Scratch Canvas Overlay (Interactive Royal Blue Foil) -->
+              <canvas id="scratch-canvas" class="scratch-canvas"></canvas>
+
+              <!-- Scratch Guidance Overlay -->
+              <div class="scratch-hint-overlay" id="scratch-hint">
+                <span class="scratch-title-script">Scratch to Reveal</span>
+                <span class="scratch-subtext">✨ Rub with finger or cursor to uncover Muhurtham surprise ✨</span>
+              </div>
+            </div>
+
+            <!-- Manual Reveal Button for Accessibility -->
+            <div class="scratch-controls">
+              <button id="btn-quick-reveal" class="btn-reveal-quick">
+                <i data-lucide="sparkle"></i> Quick Reveal
+              </button>
+              <button id="btn-reset-scratch" class="btn-reveal-reset hidden">
+                <i data-lucide="rotate-ccw"></i> Scratch Again
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- 4. ORDER OF EVENTS SECTION (TIMELINE) -->
+        <!-- ============================================== -->
+        <section id="events" class="invitation-section events-section">
+          <div class="section-badge anim-blur">
+            <span class="badge-text">Ceremonies & Celebrations</span>
+          </div>
+          <h2 class="section-title anim-blur">Order of Events</h2>
+          <div class="section-divider anim-blur">
+            <span class="divider-line"></span>
+            <span class="divider-icon">🪷</span>
+            <span class="divider-line"></span>
+          </div>
+
+          <div class="events-timeline">
+
+            <!-- EVENT 1: WEDDING CEREMONY -->
+            <article class="event-card-item anim-blur" data-delay="100">
+              <div class="event-banner-card hover-glow">
+                <img 
+                  src="assets/banner-wedding.png" 
+                  alt="Wedding Ceremony Banner 10-12-2026" 
+                  class="event-artwork-img" 
+                />
+              </div>
+
+              <div class="event-info-panel">
+                <div class="event-header-row">
+                  <div class="event-meta-badge wedding-badge">
+                    <i data-lucide="heart"></i> Sacred Vivaah
+                  </div>
+                  <div class="event-timing">
+                    <i data-lucide="clock"></i> 10:00 AM – 01:30 PM
+                  </div>
+                </div>
+
+                <h3 class="event-name">The Wedding (Muhurtham)</h3>
+                <p class="event-venue">
+                  <i data-lucide="map-pin"></i> 
+                  <span class="venue-name editable-field" data-key="weddingVenue">The Royal Vrindavan Palace Hall</span>, Bangalore
+                </p>
+                <p class="event-details">
+                  Traditional Vedic Nuptials, Kanyadaan, Mangalsutra Dharana, and the holy Saptapadi around the sacred Agni.
+                </p>
+
+                <div class="event-button-row">
+                  <button class="event-btn btn-calendar" onclick="addToCalendar('Wedding')">
+                    <i data-lucide="calendar-plus"></i> Add to Calendar
+                  </button>
+                  <button class="event-btn btn-directions" onclick="openMapModal('The Royal Vrindavan Palace Hall, Bangalore')">
+                    <i data-lucide="navigation"></i> Directions
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- EVENT 2: RECEPTION -->
+            <article class="event-card-item anim-blur" data-delay="250">
+              <div class="event-banner-card hover-glow">
+                <img 
+                  src="assets/banner-reception.png" 
+                  alt="Reception Banner 22-10-26" 
+                  class="event-artwork-img" 
+                />
+              </div>
+
+              <div class="event-info-panel">
+                <div class="event-header-row">
+                  <div class="event-meta-badge reception-badge">
+                    <i data-lucide="sparkles"></i> Evening Gala
+                  </div>
+                  <div class="event-timing">
+                    <i data-lucide="clock"></i> 07:00 PM Onwards
+                  </div>
+                </div>
+
+                <h3 class="event-name">The Grand Reception</h3>
+                <p class="event-venue">
+                  <i data-lucide="map-pin"></i> 
+                  <span class="venue-name editable-field" data-key="receptionVenue">Crystal Ballroom, The Grand Orchid</span>, Bangalore
+                </p>
+                <p class="event-details">
+                  An enchanting evening of live classical melodies, dinner feast, joy, blessings, and photography with the newlyweds.
+                </p>
+
+                <div class="event-button-row">
+                  <button class="event-btn btn-calendar" onclick="addToCalendar('Reception')">
+                    <i data-lucide="calendar-plus"></i> Add to Calendar
+                  </button>
+                  <button class="event-btn btn-directions" onclick="openMapModal('Crystal Ballroom, The Grand Orchid, Bangalore')">
+                    <i data-lucide="navigation"></i> Directions
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- EVENT 3: HALDI & MEHENDI -->
+            <article class="event-card-item anim-blur" data-delay="400">
+              <div class="event-banner-card hover-glow">
+                <img 
+                  src="assets/banner-haldi.png" 
+                  alt="Haldi Ceremony Banner 22-10-26" 
+                  class="event-artwork-img" 
+                />
+              </div>
+
+              <div class="event-info-panel">
+                <div class="event-header-row">
+                  <div class="event-meta-badge haldi-badge">
+                    <i data-lucide="sun"></i> Auspicious Turmeric
+                  </div>
+                  <div class="event-timing">
+                    <i data-lucide="clock"></i> 10:00 AM Onwards
+                  </div>
+                </div>
+
+                <h3 class="event-name">Haldi & Mehendi Celebration</h3>
+                <p class="event-venue">
+                  <i data-lucide="map-pin"></i> 
+                  <span class="venue-name editable-field" data-key="haldiVenue">Ananda Mango Orchards</span>, Kanakapura Road
+                </p>
+                <p class="event-details">
+                  A sun-kissed celebration of vibrant turmeric blessings, intricate henna artistry, traditional dholak beats, and joy.
+                </p>
+
+                <div class="event-button-row">
+                  <button class="event-btn btn-calendar" onclick="addToCalendar('Haldi')">
+                    <i data-lucide="calendar-plus"></i> Add to Calendar
+                  </button>
+                  <button class="event-btn btn-directions" onclick="openMapModal('Ananda Mango Orchards, Bangalore')">
+                    <i data-lucide="navigation"></i> Directions
+                  </button>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- 5. INTERACTIVE RSVP SECTION -->
+        <!-- ============================================== -->
+        <section id="rsvp" class="invitation-section rsvp-section">
+          <!-- Matching the prominent royal blue section from the screenshot -->
+          <div class="rsvp-blue-banner anim-blur">
+            <div class="rsvp-banner-glow"></div>
+            <div class="rsvp-top-badge">Confirm Your Presence</div>
+            <h2 class="rsvp-banner-title">RSVP</h2>
+            <p class="rsvp-banner-subtitle">
+              Your presence will make our celebration truly joyous and memorable. Kindly let us know if you can join us!
+            </p>
+          </div>
+
+          <!-- RSVP Interactive Form Box -->
+          <div class="rsvp-card-box anim-blur" data-delay="150">
+            <form id="rsvp-form" class="rsvp-form" onsubmit="handleRsvpSubmit(event)">
+              <div class="form-grid">
+                
+                <!-- Guest Name -->
+                <div class="form-group">
+                  <label for="rsvp-name">Full Name <span class="req">*</span></label>
+                  <div class="input-with-icon">
+                    <i data-lucide="user"></i>
+                    <input type="text" id="rsvp-name" required placeholder="e.g. Ramesh Kumar & Family" />
+                  </div>
+                </div>
+
+                <!-- Contact Number / WhatsApp -->
+                <div class="form-group">
+                  <label for="rsvp-phone">Phone / WhatsApp <span class="req">*</span></label>
+                  <div class="input-with-icon">
+                    <i data-lucide="phone"></i>
+                    <input type="tel" id="rsvp-phone" required placeholder="e.g. +91 98765 43210" />
+                  </div>
+                </div>
+
+                <!-- Attendance Status -->
+                <div class="form-group full-width">
+                  <label>Will you be attending? <span class="req">*</span></label>
+                  <div class="radio-pill-group">
+                    <label class="radio-pill active">
+                      <input type="radio" name="attending" value="yes" checked />
+                      <span class="pill-text">🌸 Joyfully Accept</span>
+                    </label>
+                    <label class="radio-pill">
+                      <input type="radio" name="attending" value="no" />
+                      <span class="pill-text">🕊️ Regretfully Decline</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Guest Count -->
+                <div class="form-group" id="group-guests-count">
+                  <label for="rsvp-guests">Number of Guests</label>
+                  <div class="input-with-icon">
+                    <i data-lucide="users"></i>
+                    <select id="rsvp-guests">
+                      <option value="1">1 Person</option>
+                      <option value="2" selected>2 Persons</option>
+                      <option value="3">3 Persons</option>
+                      <option value="4">4 Persons</option>
+                      <option value="5+">5+ (Family)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Events Attending -->
+                <div class="form-group" id="group-events-check">
+                  <label>Attending Events</label>
+                  <div class="checkbox-row">
+                    <label class="check-box-label">
+                      <input type="checkbox" name="events" value="Haldi" checked /> Haldi
+                    </label>
+                    <label class="check-box-label">
+                      <input type="checkbox" name="events" value="Wedding" checked /> Wedding
+                    </label>
+                    <label class="check-box-label">
+                      <input type="checkbox" name="events" value="Reception" checked /> Reception
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Warm Wishes / Message -->
+                <div class="form-group full-width">
+                  <label for="rsvp-message">Warm Wishes for the Couple</label>
+                  <div class="input-with-icon">
+                    <i data-lucide="message-square"></i>
+                    <textarea id="rsvp-message" rows="2" placeholder="Write a blessing or note for Hemanth & Yashaswini..."></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="form-actions">
+                <button type="submit" class="btn-primary-gold hover-glow">
+                  <i data-lucide="send"></i>
+                  <span>Send My RSVP</span>
+                </button>
+              </div>
+            </form>
+
+            <!-- Success Confirmation Box (Shown after submit) -->
+            <div id="rsvp-success-box" class="rsvp-success-card hidden">
+              <div class="success-icon-wrap">
+                <i data-lucide="check-circle" class="success-check-icon"></i>
+              </div>
+              <h3 class="success-title">Thank You, <span id="guest-name-display">Guest</span>!</h3>
+              <p class="success-msg">
+                Your RSVP has been graciously recorded. We eagerly await welcoming you with warmth, sweetness, and open arms!
+              </p>
+              <div class="success-summary-pill" id="rsvp-summary-details"></div>
+              <button class="btn-secondary-gold" onclick="resetRsvpForm()">
+                <i data-lucide="refresh-cw"></i> Edit My Response
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- 6. KINDLY JOIN US & FAMILY BLESSINGS SECTION -->
+        <!-- ============================================== -->
+        <section id="invitation" class="invitation-section kindly-join-section">
+          
+          <!-- Radha Krishna on Swing (Jhula) with realistic pendulum sway -->
+          <div class="swing-container anim-blur">
+            <div class="swing-rope-anchor"></div>
+            <div class="swing-pendulum hover-swing">
+              <img 
+                src="assets/radha-krishna-swing.png" 
+                alt="Radha Krishna on Sacred Floral Swing (Jhula)" 
+                class="swing-artwork-img" 
+              />
+            </div>
+          </div>
+
+          <!-- Kindly Join Us Calligraphy & Heartfelt Words -->
+          <div class="invitation-text-wrapper anim-blur" data-delay="200">
+            <h2 class="kindly-join-title font-serif">Kindly Join Us</h2>
+            
+            <div class="invitation-verse">
+              <p class="verse-lead">
+                With hearts full of joy, we invite you to<br>
+                celebrate our special day.
+              </p>
+              <p class="verse-body">
+                Your presence and blessings will make our<br>
+                celebration truly memorable.
+              </p>
+            </div>
+
+            <!-- Host / Parents Names -->
+            <div class="family-hosts-container">
+              <div class="host-line primary-host editable-field" data-key="hostFather">Raja Vardhan</div>
+              <div class="host-connector">with</div>
+              <div class="host-line secondary-host editable-field" data-key="hostMother">Meera Devi</div>
+            </div>
+
+            <div class="family-garland-ornament">
+              <img src="assets/floral-garland.png" alt="Decorative Floral Garland" class="garland-img" />
+            </div>
+
+            <!-- Warm Closing Tagline -->
+            <div class="celebrating-tagline anim-blur" data-delay="300">
+              <span class="tagline-ornament">✦</span>
+              <span class="tagline-text">WE LOOK FORWARD TO CELEBRATING WITH YOU</span>
+              <span class="tagline-ornament">✦</span>
+            </div>
+          </div>
+
+          <!-- Social Sharing & Quick Action Buttons -->
+          <div class="share-actions-row anim-blur" data-delay="400">
+            <button class="action-pill-btn" onclick="shareOnWhatsApp()">
+              <i data-lucide="share-2"></i> WhatsApp Invite
+            </button>
+            <button class="action-pill-btn" onclick="copyInvitationLink()">
+              <i data-lucide="link"></i> Copy Link
+            </button>
+            <button class="action-pill-btn" onclick="window.print()">
+              <i data-lucide="printer"></i> Print / PDF
+            </button>
+          </div>
+
+          <!-- Bottom Footer -->
+          <footer class="wedding-footer">
+            <div class="footer-crest">
+              <img src="assets/floral-crest.png" alt="Royal Wedding Crest" class="crest-img" />
+            </div>
+            <div class="wedding-hashtag">#HemanthWedsYashaswini</div>
+            <p class="copyright-note">Made with divine devotion & love • Best viewed on all screens</p>
+          </footer>
+        </section>
+
+      </div><!-- /.phone-screen-content -->
+    </div><!-- /.phone-frame-container -->
+
+  </div><!-- /#app-wrapper -->
+
+  <!-- ============================================== -->
+  <!-- MODALS & OVERLAYS -->
+  <!-- ============================================== -->
+
+  <!-- 1. MAP / DIRECTIONS MODAL -->
+  <div id="modal-map" class="custom-modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" onclick="closeMapModal()"></div>
+    <div class="modal-dialog">
+      <button class="modal-close-btn" onclick="closeMapModal()" aria-label="Close modal">
+        <i data-lucide="x"></i>
+      </button>
+      <div class="modal-header">
+        <i data-lucide="map-pin" class="modal-header-icon"></i>
+        <h3 id="map-modal-title">Venue Directions</h3>
+      </div>
+      <div class="modal-body">
+        <p id="map-modal-address" class="venue-address-text">The Royal Vrindavan Palace Hall, Bangalore</p>
+        <div class="map-placeholder-box">
+          <div class="map-grid-graphic">
+            <i data-lucide="navigation-2" class="map-pin-pulse"></i>
+            <span>Google Maps Live Route Available</span>
+          </div>
+        </div>
+        <div class="modal-actions-row">
+          <a id="google-maps-link" href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn-primary-gold">
+            <i data-lucide="external-link"></i> Open in Google Maps
+          </a>
+          <button class="btn-secondary-gold" onclick="copyAddressText()">
+            <i data-lucide="copy"></i> Copy Address
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. LIVE TEMPLATE CUSTOMIZER DRAWER -->
+  <div id="modal-customizer" class="custom-modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" onclick="closeCustomizerModal()"></div>
+    <div class="modal-drawer">
+      <div class="drawer-header">
+        <div class="drawer-title-wrap">
+          <i data-lucide="palette" class="drawer-icon"></i>
+          <h3>Template Customizer</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeCustomizerModal()">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <div class="drawer-body">
+        <p class="drawer-intro">Edit the wedding details in real-time to customize this Radha-Krishna template for any couple:</p>
+
+        <form id="customizer-form" onsubmit="saveCustomizerData(event)">
+          <div class="drawer-section-title">Couple Information</div>
+          <div class="form-group">
+            <label>Groom's First Name</label>
+            <input type="text" id="cust-groomName" value="Hemanth" />
+          </div>
+          <div class="form-group">
+            <label>Groom's Full Name</label>
+            <input type="text" id="cust-groomFullName" value="Hemanth" />
+          </div>
+          <div class="form-group">
+            <label>Groom's Parents</label>
+            <input type="text" id="cust-groomParents" value="Son of Smt. Parvathi & Sri Chandrashekar" />
+          </div>
+
+          <div class="form-group">
+            <label>Bride's First Name</label>
+            <input type="text" id="cust-brideName" value="Yashaswini" />
+          </div>
+          <div class="form-group">
+            <label>Bride's Full Name</label>
+            <input type="text" id="cust-brideFullName" value="Yashaswini" />
+          </div>
+          <div class="form-group">
+            <label>Bride's Parents</label>
+            <input type="text" id="cust-brideParents" value="Daughter of Smt. Lakshmi & Sri Venkatesh" />
+          </div>
+
+          <div class="drawer-section-title">Date & Invitation Hosts</div>
+          <div class="form-group">
+            <label>Wedding Date Display</label>
+            <input type="text" id="cust-weddingDateDisplay" value="0 1   N O V E M B E R   2 0 2 6" />
+          </div>
+          <div class="form-group">
+            <label>Host 1 (Father / Elder)</label>
+            <input type="text" id="cust-hostFather" value="Raja Vardhan" />
+          </div>
+          <div class="form-group">
+            <label>Host 2 (Mother / Elder)</label>
+            <input type="text" id="cust-hostMother" value="Meera Devi" />
+          </div>
+
+          <div class="drawer-section-title">Wedding Venue</div>
+          <div class="form-group">
+            <label>Wedding Hall Name</label>
+            <input type="text" id="cust-weddingVenue" value="The Royal Vrindavan Palace Hall" />
+          </div>
+
+          <div class="drawer-actions">
+            <button type="submit" class="btn-primary-gold">
+              <i data-lucide="check"></i> Apply Live Changes
+            </button>
+            <button type="button" class="btn-secondary-gold" onclick="resetCustomizerToDefaults()">
+              <i data-lucide="rotate-ccw"></i> Reset Defaults
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Core JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
