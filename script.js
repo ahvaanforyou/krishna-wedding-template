@@ -2,7 +2,7 @@
  * ============================================================================
  * KRISHNA WEDDING TEMPLATE - JAVASCRIPT ENGINE
  * Mobile-First Interactive Suite: Text Blur Scroll, Scratch Card Engine,
- * Responsive RSVP System, Confetti Celebrations & Social Sharing
+ * Live Countdown Timer, Responsive RSVP System, Confetti & Social Sharing
  * ============================================================================
  */
 
@@ -18,7 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // 2. Interactive Scratch Card Engine
   initScratchCard();
 
-  // 3. Responsive RSVP System
+  // 3. Live Countdown Timer
+  initWeddingCountdown();
+
+  // 4. Responsive RSVP System
   initRsvpExpander();
   checkExistingRsvp();
 });
@@ -63,7 +66,48 @@ function initScrollAnimations() {
 }
 
 /* ==========================================================================
-   2. INTERACTIVE SCRATCH TO REVEAL CARD
+   2. LIVE WEDDING COUNTDOWN TIMER (01 NOVEMBER 2026)
+   ========================================================================== */
+function initWeddingCountdown() {
+  // Target: November 1, 2026 at 10:24 AM IST
+  const targetDate = new Date('2026-11-01T10:24:00+05:30').getTime();
+
+  const elDays = document.getElementById('cd-days');
+  const elHours = document.getElementById('cd-hours');
+  const elMinutes = document.getElementById('cd-minutes');
+  const elSeconds = document.getElementById('cd-seconds');
+
+  if (!elDays || !elHours || !elMinutes || !elSeconds) return;
+
+  function update() {
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+      elDays.textContent = '00';
+      elHours.textContent = '00';
+      elMinutes.textContent = '00';
+      elSeconds.textContent = '00';
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    elDays.textContent = String(days).padStart(2, '0');
+    elHours.textContent = String(hours).padStart(2, '0');
+    elMinutes.textContent = String(minutes).padStart(2, '0');
+    elSeconds.textContent = String(seconds).padStart(2, '0');
+  }
+
+  update();
+  setInterval(update, 1000);
+}
+
+/* ==========================================================================
+   3. INTERACTIVE SCRATCH TO REVEAL CARD (MOBILE TOUCH FIXED)
    ========================================================================== */
 function initScratchCard() {
   const container = document.getElementById('scratch-container');
@@ -101,6 +145,7 @@ function initScratchCard() {
     canvas.style.opacity = '1';
     canvas.style.pointerEvents = 'auto';
     if (hintOverlay) hintOverlay.style.opacity = '1';
+    if (btnQuickReveal) btnQuickReveal.classList.remove('hidden');
   }
 
   paintCover();
@@ -113,7 +158,7 @@ function initScratchCard() {
 
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    ctx.arc(x, y, 24, 0, Math.PI * 2);
+    ctx.arc(x, y, 26, 0, Math.PI * 2);
     ctx.fill();
 
     if (hintOverlay && hintOverlay.style.opacity !== '0') {
@@ -150,22 +195,25 @@ function initScratchCard() {
     isDrawing = false;
   });
 
-  // Touch Listeners
+  // Touch Listeners with e.preventDefault() so mobile screen doesn't drag/scroll
   canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault();
     isDrawing = true;
     const { x, y } = getCoordinates(e);
     scratch(x, y);
-  }, { passive: true });
+  }, { passive: false });
 
   canvas.addEventListener('touchmove', (e) => {
     if (!isDrawing) return;
+    e.preventDefault();
     const { x, y } = getCoordinates(e);
     scratch(x, y);
-  }, { passive: true });
+  }, { passive: false });
 
-  canvas.addEventListener('touchend', () => {
+  canvas.addEventListener('touchend', (e) => {
+    e.preventDefault();
     isDrawing = false;
-  });
+  }, { passive: false });
 
   // Progress check
   let lastCheck = 0;
@@ -184,7 +232,7 @@ function initScratchCard() {
       if (pixels[i] === 0) transparent++;
     }
 
-    if ((transparent / totalSampled) * 100 > 35) {
+    if ((transparent / totalSampled) * 100 > 30) {
       triggerFullReveal();
     }
   }
@@ -218,7 +266,7 @@ function copyBlessingCode() {
 }
 
 /* ==========================================================================
-   3. RESPONSIVE RSVP SYSTEM
+   4. RESPONSIVE RSVP SYSTEM
    ========================================================================== */
 function initRsvpExpander() {
   const toggleBar = document.getElementById('rsvp-toggle-bar');
@@ -302,7 +350,7 @@ function checkExistingRsvp() {
 }
 
 /* ==========================================================================
-   4. SOCIAL SHARING & UTILITIES
+   5. SOCIAL SHARING & UTILITIES
    ========================================================================== */
 function shareOnWhatsApp() {
   const groom = 'Hemanth';

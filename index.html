@@ -61,12 +61,13 @@
     </header>
 
     <!-- ============================================== -->
-    <!-- 2. BRIDE PIC SECTION (Baby Krishna Peeking from Left) -->
+    <!-- 2. GROOM PIC SECTION (Top - Baby Krishna Peeking from Left) -->
+    <!-- Interchanged: Groom is on Top -->
     <!-- ============================================== -->
-    <section class="section-couple-member section-bride anim-blur">
-      <div class="couple-member-row bride-layout">
+    <section class="section-couple-member section-groom anim-blur">
+      <div class="couple-member-row groom-layout">
         
-        <!-- Large Baby Krishna Peeking from Left Edge -->
+        <!-- Large Baby Krishna Peeking Touching Left Phone Screen -->
         <div class="peeking-icon-wrap krishna-peeking-wrap">
           <img 
             src="assets/krishna-peeking.png" 
@@ -75,34 +76,11 @@
           />
         </div>
 
-        <!-- Bride Photo Card with Test Photo -->
-        <div class="member-photo-card bride-card hover-lift">
-          <div class="card-inner-photo">
-            <img 
-              src="assets/test-bride.jpg" 
-              alt="Bride Portrait" 
-              class="actual-portrait-img" 
-            />
-            <div class="photo-script-overlay">
-              <span class="photo-script-title">Bride Pic</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ============================================== -->
-    <!-- 3. GROOM PIC SECTION (Baby Radha Peeking from Right) -->
-    <!-- ============================================== -->
-    <section class="section-couple-member section-groom anim-blur">
-      <div class="couple-member-row groom-layout">
-        
-        <!-- Groom Photo Card with Test Photo -->
+        <!-- Groom Photo Card with AI Groom Portrait -->
         <div class="member-photo-card groom-card hover-lift">
           <div class="card-inner-photo">
             <img 
-              src="assets/test-groom.jpg" 
+              src="assets/ai-groom.jpg" 
               alt="Groom Portrait" 
               class="actual-portrait-img" 
             />
@@ -112,7 +90,31 @@
           </div>
         </div>
 
-        <!-- Large Baby Radha Peeking from Right Edge -->
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 3. BRIDE PIC SECTION (Bottom - Baby Radha Peeking from Right) -->
+    <!-- Interchanged: Bride is on Bottom -->
+    <!-- ============================================== -->
+    <section class="section-couple-member section-bride anim-blur">
+      <div class="couple-member-row bride-layout">
+        
+        <!-- Bride Photo Card with AI Bride Portrait -->
+        <div class="member-photo-card bride-card hover-lift">
+          <div class="card-inner-photo">
+            <img 
+              src="assets/ai-bride.jpg" 
+              alt="Bride Portrait" 
+              class="actual-portrait-img" 
+            />
+            <div class="photo-script-overlay">
+              <span class="photo-script-title">Bride Pic</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Large Baby Radha Peeking Touching Right Phone Screen -->
         <div class="peeking-icon-wrap radha-peeking-wrap">
           <img 
             src="assets/radha-peeking.png" 
@@ -125,19 +127,48 @@
     </section>
 
     <!-- ============================================== -->
-    <!-- 4. SCRATCH TO REVEAL SECTION -->
+    <!-- 4. SCRATCH TO REVEAL SECTION & LIVE COUNTDOWN -->
+    <!-- Mobile touch-action: none & live countdown timer -->
     <!-- ============================================== -->
     <section class="section-scratch anim-blur">
+      
+      <!-- Top Countdown Strip to the Wedding -->
+      <div class="countdown-card-strip">
+        <div class="countdown-strip-title">✦ COUNTDOWN TO THE AUSPICIOUS MOMENT ✦</div>
+        <div class="countdown-units-row" id="wedding-countdown">
+          <div class="cd-unit">
+            <span class="cd-num" id="cd-days">00</span>
+            <span class="cd-lbl">Days</span>
+          </div>
+          <span class="cd-colon">:</span>
+          <div class="cd-unit">
+            <span class="cd-num" id="cd-hours">00</span>
+            <span class="cd-lbl">Hours</span>
+          </div>
+          <span class="cd-colon">:</span>
+          <div class="cd-unit">
+            <span class="cd-num" id="cd-minutes">00</span>
+            <span class="cd-lbl">Mins</span>
+          </div>
+          <span class="cd-colon">:</span>
+          <div class="cd-unit">
+            <span class="cd-num" id="cd-seconds">00</span>
+            <span class="cd-lbl">Secs</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Scratch Box -->
       <div class="scratch-card-box" id="scratch-container">
         
         <!-- Underneath Revealed Content -->
         <div class="scratch-under-content">
           <div class="scratch-inner-border">
-            <div class="scratch-pill-tag">✦ Sacred Muhurtham ✦</div>
+            <div class="scratch-pill-tag">✦ Auspicious Muhurtham Unveiled ✦</div>
             <div class="muhurtham-clock">10:24 AM</div>
-            <div class="muhurtham-sub">Godhuli Vela | Rohini Nakshatra</div>
+            <div class="muhurtham-sub">Godhuli Vela | Rohini Nakshatra | Dhanu Lagna</div>
             <p class="scratch-msg">
-              "Your blessings are our greatest treasure. Show this auspicious code at reception for a sacred Krishna Prasad box:"
+              "Your sacred blessings are our greatest treasure. Show this auspicious code at reception for a sacred Krishna Prasad box:"
             </p>
             <div class="pass-code-pill" onclick="copyBlessingCode()">
               <span>#RADHE-SHYAM-2026</span>
@@ -152,7 +183,7 @@
         <!-- Scratch Script Text Overlay -->
         <div class="scratch-label-overlay" id="scratch-hint">
           <span class="scratch-calligraphy">Scratch to Reveal</span>
-          <span class="scratch-tap-guide">✨ Scratch with finger or click to reveal ✨</span>
+          <span class="scratch-tap-guide">✨ Rub with finger to reveal secret Muhurtham ✨</span>
         </div>
       </div>
 
@@ -164,38 +195,73 @@
     </section>
 
     <!-- ============================================== -->
-    <!-- 5. ORDER OF EVENTS SECTION -->
+    <!-- 5. ORDER OF EVENTS SECTION (WITH CONTENT ON TOP) -->
     <!-- ============================================== -->
     <section class="section-events anim-blur">
       <h2 class="events-main-title">Order of Events</h2>
 
       <div class="events-banner-stack">
-        <!-- 1. Wedding Banner (10-12-2026) -->
-        <div class="event-banner-wrap hover-banner">
-          <img 
-            src="assets/banner-wedding.png" 
-            alt="Wedding Ceremony - 10-12-2026" 
-            class="event-banner-artwork" 
-          />
+        
+        <!-- 1. Wedding Event Card -->
+        <div class="event-card-item">
+          <div class="event-card-top-content">
+            <div class="event-badge-tag wedding-tag">✦ Sacred Vivaah ✦</div>
+            <h3 class="event-card-title">The Wedding Ceremony</h3>
+            <p class="event-card-desc">Traditional Vedic Nuptials, Kanyadaan & Saptapadi around the holy Agni</p>
+            <div class="event-card-meta">
+              <span><i data-lucide="calendar"></i> 10 December 2026</span>
+              <span><i data-lucide="clock"></i> 10:00 AM – 01:30 PM</span>
+            </div>
+          </div>
+          <div class="event-banner-wrap hover-banner">
+            <img 
+              src="assets/banner-wedding.png" 
+              alt="Wedding Ceremony - 10-12-2026" 
+              class="event-banner-artwork" 
+            />
+          </div>
         </div>
 
-        <!-- 2. Reception Banner (22-10-26) -->
-        <div class="event-banner-wrap hover-banner">
-          <img 
-            src="assets/banner-reception.png" 
-            alt="Reception Gala - 22-10-26" 
-            class="event-banner-artwork" 
-          />
+        <!-- 2. Reception Event Card -->
+        <div class="event-card-item">
+          <div class="event-card-top-content">
+            <div class="event-badge-tag reception-tag">✦ Evening Gala ✦</div>
+            <h3 class="event-card-title">The Grand Reception</h3>
+            <p class="event-card-desc">An enchanting evening of live classical melodies, dinner feast & celebration</p>
+            <div class="event-card-meta">
+              <span><i data-lucide="calendar"></i> 22 October 2026</span>
+              <span><i data-lucide="clock"></i> 07:00 PM Onwards</span>
+            </div>
+          </div>
+          <div class="event-banner-wrap hover-banner">
+            <img 
+              src="assets/banner-reception.png" 
+              alt="Reception Gala - 22-10-26" 
+              class="event-banner-artwork" 
+            />
+          </div>
         </div>
 
-        <!-- 3. Haldi Banner (22-10-26) -->
-        <div class="event-banner-wrap hover-banner">
-          <img 
-            src="assets/banner-haldi.png" 
-            alt="Haldi Celebration - 22-10-26" 
-            class="event-banner-artwork" 
-          />
+        <!-- 3. Haldi Event Card -->
+        <div class="event-card-item">
+          <div class="event-card-top-content">
+            <div class="event-badge-tag haldi-tag">✦ Auspicious Turmeric ✦</div>
+            <h3 class="event-card-title">Haldi & Mehendi Celebration</h3>
+            <p class="event-card-desc">A sun-kissed celebration of vibrant turmeric blessings, henna artistry & folk songs</p>
+            <div class="event-card-meta">
+              <span><i data-lucide="calendar"></i> 22 October 2026</span>
+              <span><i data-lucide="clock"></i> 10:00 AM Onwards</span>
+            </div>
+          </div>
+          <div class="event-banner-wrap hover-banner">
+            <img 
+              src="assets/banner-haldi.png" 
+              alt="Haldi Celebration - 22-10-26" 
+              class="event-banner-artwork" 
+            />
+          </div>
         </div>
+
       </div>
     </section>
 
