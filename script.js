@@ -43,6 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 8. Background Wedding Music & Floating Mute Button
   initBackgroundMusic();
+
+  // 9. Immersive Opening Video Experience (First Frame Screenshot -> Tap to Open -> Video Play & Music -> Smooth Hero Transition)
+  initIntroExperience();
 });
 
 /* ==========================================================================
@@ -695,6 +698,132 @@ function initBackgroundMusic() {
   document.addEventListener('touchstart', tryStartMusic, { once: true });
   document.addEventListener('scroll', tryStartMusic, { once: true });
 
+  // Global trigger helper
+  window.triggerWeddingMusic = playAudio;
+
   // Initial attempt
   playAudio();
+}
+
+/* ==========================================================================
+   9. IMMERSIVE VIDEO INTRO EXPERIENCE
+   - First frame screenshot with "Tap to Open" box below hands
+   - Heading "Invitation to Allu's Wedding" above hands
+   - Music & video playback triggered on user tap
+   - Smooth fade-out video transition into main hero page when video ends
+   ========================================================================== */
+function initIntroExperience() {
+  const overlay = document.getElementById('introVideoOverlay');
+  const stage = overlay ? overlay.querySelector('.intro-stage') : null;
+  const cover = document.getElementById('introCoverScreen');
+  const video = document.getElementById('introVideo');
+  const tapBtn = document.getElementById('btnTapToOpen');
+  const skipBtn = document.getElementById('btnSkipIntro');
+  const bgm = document.getElementById('weddingBgm');
+  const musicBtn = document.getElementById('musicToggleBtn');
+
+  if (!overlay || !video) return;
+
+  // Lock body scroll while intro is showing
+  document.body.classList.add('intro-active');
+
+  let hasStarted = false;
+  let hasTransitioned = false;
+
+  function startExperience() {
+    if (hasStarted) return;
+    hasStarted = true;
+
+    // 1. Play Background Wedding Music
+    if (window.triggerWeddingMusic) {
+      window.triggerWeddingMusic();
+    } else if (bgm) {
+      bgm.play().then(() => {
+        if (musicBtn) {
+          musicBtn.classList.add('playing');
+          musicBtn.classList.remove('muted');
+        }
+      }).catch(err => {
+        console.warn('Wedding audio autoplay prompt:', err);
+      });
+    }
+
+    // 2. Smoothly fade out the static screenshot and "Tap to Open" box & title
+    if (cover) {
+      cover.classList.add('hide-cover');
+    }
+
+    // 3. Play the video
+    try {
+      video.currentTime = 0;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          console.warn('Video play issue, gracefully continuing:', err);
+          // If video playback fails for any browser reason, transition immediately
+          finishExperience();
+        });
+      }
+    } catch (e) {
+      finishExperience();
+    }
+  }
+
+  function finishExperience() {
+    if (hasTransitioned) return;
+    hasTransitioned = true;
+
+    // Smooth fade out animation of the intro video overlay
+    overlay.classList.add('fade-out');
+
+    // After fade out completes, remove overlay and unlock scrolling
+    setTimeout(() => {
+      overlay.style.display = 'none';
+      document.body.classList.remove('intro-active');
+
+      // Pause video in background to save device resources
+      try {
+        video.pause();
+      } catch (e) {}
+
+      // Refresh GSAP ScrollTrigger & Lucide Icons for perfect layout
+      if (window.ScrollTrigger) {
+        ScrollTrigger.refresh();
+      }
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+    }, 850);
+  }
+
+  // Tap button & Cover screen listeners
+  if (tapBtn) {
+    tapBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      startExperience();
+    });
+  }
+
+  if (cover) {
+    cover.addEventListener('click', () => {
+      startExperience();
+    });
+  }
+
+  // When video ends, smoothly fade out into main hero page
+  video.addEventListener('ended', () => {
+    finishExperience();
+  });
+
+  // Skip button listener
+  if (skipBtn) {
+    skipBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      // Ensure music starts if not playing
+      if (window.triggerWeddingMusic) {
+        window.triggerWeddingMusic();
+      }
+      finishExperience();
+    });
+  }
 }
