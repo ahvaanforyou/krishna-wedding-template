@@ -11,6 +11,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;500;600;700;800&family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Marcellus&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
+  <!-- GSAP & ScrollTrigger for luxury stacking scroll animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- Canvas Confetti -->
@@ -19,6 +22,9 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="theme-krishna">
+
+  <!-- Continuous Falling Flower Petals Canvas Overlay -->
+  <canvas id="flower-petals-canvas" aria-hidden="true"></canvas>
 
   <!-- Main Container -->
   <main class="invite-container">
@@ -94,7 +100,7 @@
     <section class="section-couple-member section-groom anim-blur">
       <div class="couple-member-row groom-layout">
         
-        <!-- Large Baby Krishna Flush Against Left Phone Screen Border -->
+        <!-- Baby Krishna Flush Against Left Phone Screen Border (Zero whitespace) -->
         <div class="peeking-icon-wrap krishna-peeking-wrap">
           <img 
             src="assets/krishna-peeking.png" 
@@ -141,7 +147,7 @@
           </div>
         </div>
 
-        <!-- Large Baby Radha Flush Against Right Phone Screen Border -->
+        <!-- Baby Radha Flush Against Right Phone Screen Border (Zero whitespace) -->
         <div class="peeking-icon-wrap radha-peeking-wrap">
           <img 
             src="assets/radha-peeking.png" 
@@ -212,70 +218,126 @@
     </section>
 
     <!-- ============================================== -->
-    <!-- 6. ORDER OF EVENTS SECTION (WITH CONTENT ON TOP) -->
+    <!-- 6. PHOTO GALLERY CAROUSEL SECTION -->
+    <!-- Swift continuous carousel before event cards -->
     <!-- ============================================== -->
-    <section class="section-events anim-blur">
-      <h2 class="events-main-title">Order of Events</h2>
+    <section class="section-gallery anim-blur" id="gallery">
+      <div class="section-title-wrap">
+        <span class="section-badge">✦ SACRED MOMENTS ✦</span>
+        <h2 class="section-title">Cherished Moments</h2>
+        <div class="section-divider-flourish">
+          <span class="div-line"></span>
+          <span class="div-symbol">❦</span>
+          <span class="div-line"></span>
+        </div>
+        <p class="section-subtitle">A glimpse into our journey of love, friendship, and divine togetherness</p>
+      </div>
 
-      <div class="events-banner-stack">
+      <div class="gallery-carousel-viewport" id="galleryViewport">
+        <div class="gallery-carousel-track" id="galleryTrack">
+          <!-- Slide items -->
+          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/ai-groom.jpg" alt="Groom Portrait" loading="lazy" /></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/ai-bride.jpg" alt="Bride Portrait" loading="lazy" /></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/hero-radha-krishna.png" alt="Radha Krishna" loading="lazy" /></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/test-groom.jpg" alt="Groom Moment" loading="lazy" /></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/test-bride.jpg" alt="Bride Moment" loading="lazy" /></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/image 94.png" alt="Couple Joy" loading="lazy" /></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/image 95.png" alt="Couple Romance" loading="lazy" /></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/image 96.png" alt="Couple Celebration" loading="lazy" /></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/radha-krishna-swing.png" alt="Sacred Swing" loading="lazy" /></div></div>
+
+          <!-- Duplicated for seamless continuous infinite marquee -->
+          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/ai-groom.jpg" alt="Groom Portrait" loading="lazy" /></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/ai-bride.jpg" alt="Bride Portrait" loading="lazy" /></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/hero-radha-krishna.png" alt="Radha Krishna" loading="lazy" /></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/test-groom.jpg" alt="Groom Moment" loading="lazy" /></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/test-bride.jpg" alt="Bride Moment" loading="lazy" /></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/image 94.png" alt="Couple Joy" loading="lazy" /></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/image 95.png" alt="Couple Romance" loading="lazy" /></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/image 96.png" alt="Couple Celebration" loading="lazy" /></div></div>
+          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/radha-krishna-swing.png" alt="Sacred Swing" loading="lazy" /></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 7. ORDER OF EVENTS SECTION (SCROLL TRIGGER STACKING) -->
+    <!-- Text placed directly inside the white parchment space of each banner -->
+    <!-- ============================================== -->
+    <section class="section-events anim-blur" id="events">
+      <div class="section-title-wrap">
+        <span class="section-badge">✦ CELEBRATIONS ✦</span>
+        <h2 class="events-main-title">Order of Events</h2>
+        <div class="section-divider-flourish">
+          <span class="div-line"></span>
+          <span class="div-symbol">❦</span>
+          <span class="div-line"></span>
+        </div>
+        <p class="section-subtitle">We cordially invite you to be part of every auspicious ceremony</p>
+      </div>
+
+      <div class="events-banner-stack" id="eventsStack">
         
-        <!-- 1. Wedding Event Card -->
-        <div class="event-card-item">
-          <div class="event-card-top-content">
-            <div class="event-badge-tag wedding-tag">✦ Sacred Vivaah ✦</div>
-            <h3 class="event-card-title">The Wedding Ceremony</h3>
-            <p class="event-card-desc">Traditional Vedic Nuptials, Kanyadaan & Saptapadi around the holy Agni</p>
-            <div class="event-card-meta">
-              <span><i data-lucide="calendar"></i> 10 December 2026</span>
-              <span><i data-lucide="clock"></i> 10:00 AM – 01:30 PM</span>
-            </div>
-          </div>
-          <div class="event-banner-wrap hover-banner">
-            <img 
-              src="assets/banner-wedding.png" 
-              alt="Wedding Ceremony - 10-12-2026" 
-              class="event-banner-artwork" 
-            />
-          </div>
-        </div>
-
-        <!-- 2. Reception Event Card -->
-        <div class="event-card-item">
-          <div class="event-card-top-content">
-            <div class="event-badge-tag reception-tag">✦ Evening Gala ✦</div>
-            <h3 class="event-card-title">The Grand Reception</h3>
-            <p class="event-card-desc">An enchanting evening of live classical melodies, dinner feast & celebration</p>
-            <div class="event-card-meta">
-              <span><i data-lucide="calendar"></i> 22 October 2026</span>
-              <span><i data-lucide="clock"></i> 07:00 PM Onwards</span>
-            </div>
-          </div>
-          <div class="event-banner-wrap hover-banner">
-            <img 
-              src="assets/banner-reception.png" 
-              alt="Reception Gala - 22-10-26" 
-              class="event-banner-artwork" 
-            />
-          </div>
-        </div>
-
-        <!-- 3. Haldi Event Card -->
-        <div class="event-card-item">
-          <div class="event-card-top-content">
-            <div class="event-badge-tag haldi-tag">✦ Auspicious Turmeric ✦</div>
-            <h3 class="event-card-title">Haldi & Mehendi Celebration</h3>
-            <p class="event-card-desc">A sun-kissed celebration of vibrant turmeric blessings, henna artistry & folk songs</p>
-            <div class="event-card-meta">
-              <span><i data-lucide="calendar"></i> 22 October 2026</span>
-              <span><i data-lucide="clock"></i> 10:00 AM Onwards</span>
-            </div>
-          </div>
+        <!-- 1. Haldi & Mehendi Celebration Card -->
+        <div class="event-card-item" id="event-card-1">
           <div class="event-banner-wrap hover-banner">
             <img 
               src="assets/banner-haldi.png" 
-              alt="Haldi Celebration - 22-10-26" 
+              alt="Haldi & Mehendi Celebration" 
               class="event-banner-artwork" 
             />
+            <!-- Content placed inside the card image's white parchment area -->
+            <div class="event-card-inner-overlay">
+              <span class="event-inner-tag haldi-tag">✦ AUSPICIOUS TURMERIC ✦</span>
+              <h3 class="event-inner-title">Haldi &amp; Mehendi</h3>
+              <p class="event-inner-desc">Vibrant turmeric blessings, henna artistry &amp; folk songs</p>
+              <div class="event-inner-datetime">
+                <span class="date-badge"><i data-lucide="calendar"></i> 22 Oct 2026</span>
+                <span class="time-badge"><i data-lucide="clock"></i> 10:00 AM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Sacred Wedding Ceremony Card -->
+        <div class="event-card-item" id="event-card-2">
+          <div class="event-banner-wrap hover-banner">
+            <img 
+              src="assets/banner-wedding.png" 
+              alt="Sacred Vivaah - Wedding Ceremony" 
+              class="event-banner-artwork" 
+            />
+            <!-- Content placed inside the card image's white parchment area -->
+            <div class="event-card-inner-overlay">
+              <span class="event-inner-tag wedding-tag">✦ SACRED VIVAAH ✦</span>
+              <h3 class="event-inner-title">The Wedding Ceremony</h3>
+              <p class="event-inner-desc">Traditional Vedic Nuptials, Kanyadaan &amp; Saptapadi</p>
+              <div class="event-inner-datetime">
+                <span class="date-badge"><i data-lucide="calendar"></i> 01 Nov 2026</span>
+                <span class="time-badge"><i data-lucide="clock"></i> 09:30 AM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Grand Reception Card -->
+        <div class="event-card-item" id="event-card-3">
+          <div class="event-banner-wrap hover-banner">
+            <img 
+              src="assets/banner-reception.png" 
+              alt="The Grand Reception Gala" 
+              class="event-banner-artwork" 
+            />
+            <!-- Content placed inside the card image's white parchment area -->
+            <div class="event-card-inner-overlay">
+              <span class="event-inner-tag reception-tag">✦ EVENING GALA ✦</span>
+              <h3 class="event-inner-title">The Grand Reception</h3>
+              <p class="event-inner-desc">Enchanting evening of classical melodies, feast &amp; joy</p>
+              <div class="event-inner-datetime">
+                <span class="date-badge"><i data-lucide="calendar"></i> 02 Nov 2026</span>
+                <span class="time-badge"><i data-lucide="clock"></i> 07:00 PM</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -283,7 +345,64 @@
     </section>
 
     <!-- ============================================== -->
-    <!-- 7. RSVP SECTION (DEFAULT OPEN AS REQUESTED) -->
+    <!-- 8. VENUE & LOCATION MAP SECTION (BEFORE RSVP) -->
+    <!-- ============================================== -->
+    <section class="section-venue-map anim-blur" id="venue">
+      <div class="section-title-wrap">
+        <span class="section-badge">✦ THE SACRED DESTINATION ✦</span>
+        <h2 class="section-title">Venue &amp; Location</h2>
+        <div class="section-divider-flourish">
+          <span class="div-line"></span>
+          <span class="div-symbol">❦</span>
+          <span class="div-line"></span>
+        </div>
+        <p class="section-subtitle">We look forward to welcoming you at our auspicious celebration venue</p>
+      </div>
+
+      <div class="venue-card-wrapper">
+        <div class="venue-info-box">
+          <div class="venue-icon-circle">
+            <i data-lucide="map-pin" class="venue-pin-icon"></i>
+          </div>
+          <h3 class="venue-name">Sri Radha Krishna Kalyana Mandapam</h3>
+          <p class="venue-subname">Vrindavan Grand Palace, Palace Road, Vasanth Nagar, Bengaluru</p>
+          <div class="venue-meta-row">
+            <span><i data-lucide="calendar"></i> Sunday, 01 Nov 2026</span>
+            <span><i data-lucide="clock"></i> Muhurtham: 09:30 AM</span>
+          </div>
+        </div>
+
+        <!-- Google Maps Embed Frame -->
+        <div class="venue-map-frame">
+          <iframe
+            title="Google Maps Location for Wedding Venue"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.6749968478417!2d77.59011747594957!3d12.992663914407474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae164100000001%3A0xbcc0e2b3e8e19b88!2sBangalore%20Palace!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+            width="100%"
+            height="220"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+
+        <div class="venue-actions">
+          <a
+            href="https://maps.google.com/?q=Bangalore+Palace"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="venue-directions-btn"
+          >
+            <i data-lucide="navigation"></i>
+            <span>Open in Google Maps</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 9. RSVP SECTION (DEFAULT OPEN) -->
+    <!-- When clicking 'Regretfully Decline', guest count collapses -->
     <!-- ============================================== -->
     <section class="section-rsvp anim-blur" id="rsvp-section">
       <!-- Royal Blue RSVP Header -->
@@ -299,7 +418,7 @@
         <form id="rsvp-form" class="rsvp-form" onsubmit="handleRsvpSubmit(event)">
           <div class="form-field">
             <label for="rsvp-name">Guest / Family Name <span class="req">*</span></label>
-            <input type="text" id="rsvp-name" required placeholder="e.g. Ramesh Kumar & Family" />
+            <input type="text" id="rsvp-name" required placeholder="e.g. Ramesh Kumar &amp; Family" />
           </div>
 
           <div class="form-field">
@@ -310,42 +429,45 @@
           <div class="form-field">
             <label>Attendance Status <span class="req">*</span></label>
             <div class="attendance-radios">
-              <label class="radio-card active">
+              <label class="radio-card active" id="radio-accept-label">
                 <input type="radio" name="attending" value="yes" checked />
                 <span>🌸 Joyfully Accept</span>
               </label>
-              <label class="radio-card">
+              <label class="radio-card" id="radio-decline-label">
                 <input type="radio" name="attending" value="no" />
                 <span>🕊️ Regretfully Decline</span>
               </label>
             </div>
           </div>
 
-          <div class="form-row-dual">
-            <div class="form-field">
-              <label for="rsvp-guests">Number of Guests</label>
-              <select id="rsvp-guests">
-                <option value="1">1 Person</option>
-                <option value="2" selected>2 Persons</option>
-                <option value="3">3 Persons</option>
-                <option value="4">4 Persons</option>
-                <option value="5+">5+ Family</option>
-              </select>
-            </div>
+          <!-- Attendance Details Section (Hidden automatically when 'Regretfully Decline' is clicked) -->
+          <div id="rsvp-attendance-details">
+            <div class="form-row-dual">
+              <div class="form-field">
+                <label for="rsvp-guests">Number of Guests</label>
+                <select id="rsvp-guests">
+                  <option value="1">1 Person</option>
+                  <option value="2" selected>2 Persons</option>
+                  <option value="3">3 Persons</option>
+                  <option value="4">4 Persons</option>
+                  <option value="5+">5+ Family</option>
+                </select>
+              </div>
 
-            <div class="form-field">
-              <label>Events Attending</label>
-              <div class="event-checkboxes">
-                <label><input type="checkbox" name="events" value="Haldi" checked /> Haldi</label>
-                <label><input type="checkbox" name="events" value="Wedding" checked /> Wedding</label>
-                <label><input type="checkbox" name="events" value="Reception" checked /> Reception</label>
+              <div class="form-field">
+                <label>Events Attending</label>
+                <div class="event-checkboxes">
+                  <label><input type="checkbox" name="events" value="Haldi" checked /> Haldi</label>
+                  <label><input type="checkbox" name="events" value="Wedding" checked /> Wedding</label>
+                  <label><input type="checkbox" name="events" value="Reception" checked /> Reception</label>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="form-field">
             <label for="rsvp-message">Warm Wishes for the Couple</label>
-            <textarea id="rsvp-message" rows="2" placeholder="Send your heartfelt blessings to Hemanth & Yashaswini..."></textarea>
+            <textarea id="rsvp-message" rows="2" placeholder="Send your heartfelt blessings to Hemanth &amp; Yashaswini..."></textarea>
           </div>
 
           <button type="submit" class="btn-submit-rsvp">
@@ -372,7 +494,7 @@
     </section>
 
     <!-- ============================================== -->
-    <!-- 8. HANGING SWING & KINDLY JOIN US SECTION -->
+    <!-- 10. HANGING SWING & KINDLY JOIN US SECTION -->
     <!-- Connected directly to the bottom of the RSVP section -->
     <!-- ============================================== -->
     <section class="section-hanging-swing anim-blur">

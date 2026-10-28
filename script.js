@@ -1,8 +1,14 @@
 /**
  * ============================================================================
  * KRISHNA WEDDING TEMPLATE - JAVASCRIPT ENGINE
- * Mobile-First Interactive Suite: Text Blur Scroll, Scratch Card Engine,
- * Live Countdown Timer, Responsive RSVP System, Confetti & Social Sharing
+ * Mobile-First Interactive Suite:
+ * - Continuous Falling Flower Petals Canvas
+ * - Text Blur Entrance Scroll Animations
+ * - Scratch Card Live Countdown Engine
+ * - GSAP ScrollTrigger Event Cards Stacking Deck (like Hanisha template)
+ * - Photo Gallery Infinite Swift Carousel
+ * - Smart Responsive RSVP System (Auto-hide guests on decline)
+ * - Confetti & Social Sharing
  * ============================================================================
  */
 
@@ -12,22 +18,118 @@ document.addEventListener('DOMContentLoaded', () => {
     window.lucide.createIcons();
   }
 
-  // 1. Text Blur Entrance Animations
+  // 1. Continuous Falling Flower Petals Canvas Overlay
+  initFallingPetals();
+
+  // 2. Text Blur Entrance Animations
   initScrollAnimations();
 
-  // 2. Interactive Scratch Card Engine
+  // 3. Interactive Scratch Card Engine
   initScratchCard();
 
-  // 3. Live Countdown Timer
+  // 4. Live Wedding Countdown Timer
   initWeddingCountdown();
 
-  // 4. Responsive RSVP System
+  // 5. GSAP ScrollTrigger Event Cards Stacking Deck
+  initEventCardsScrollTrigger();
+
+  // 6. Responsive RSVP System with Attendance Toggle
+  initRsvpAttendanceToggle();
   initRsvpExpander();
   checkExistingRsvp();
 });
 
 /* ==========================================================================
-   1. TEXT BLUR SCROLL ANIMATION
+   1. CONTINUOUS FALLING FLOWER PETALS CANVAS ANIMATION
+   Marigold & soft rose petals gently floating down from the top
+   ========================================================================== */
+function initFallingPetals() {
+  const canvas = document.getElementById('flower-petals-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  let width = (canvas.width = window.innerWidth);
+  let height = (canvas.height = window.innerHeight);
+
+  window.addEventListener('resize', () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  // Mobile optimization: fewer particles for 60fps smoothness
+  const isMobile = window.innerWidth < 600;
+  const PETAL_COUNT = isMobile ? 18 : 28;
+
+  const petalColors = [
+    { r: 245, g: 176, b: 65, a: 0.8 },  // Warm golden marigold
+    { r: 235, g: 120, b: 40, a: 0.75 }, // Deep festive saffron
+    { r: 250, g: 200, b: 90, a: 0.85 }, // Bright turmeric gold
+    { r: 244, g: 143, b: 177, a: 0.75 }, // Soft blush rose
+    { r: 255, g: 250, b: 240, a: 0.85 }  // Sacred jasmine cream
+  ];
+
+  const petals = [];
+  for (let i = 0; i < PETAL_COUNT; i++) {
+    petals.push(createPetal(true));
+  }
+
+  function createPetal(initial = false) {
+    return {
+      x: Math.random() * width,
+      y: initial ? Math.random() * height : -20 - Math.random() * 40,
+      size: Math.random() * 7 + 7,
+      speedY: Math.random() * 1.3 + 0.9,
+      speedX: (Math.random() - 0.5) * 0.8,
+      swaySpeed: Math.random() * 0.025 + 0.015,
+      swayOffset: Math.random() * Math.PI * 2,
+      rotation: Math.random() * 360,
+      rotationSpeed: (Math.random() - 0.5) * 1.6,
+      color: petalColors[Math.floor(Math.random() * petalColors.length)]
+    };
+  }
+
+  function drawPetal(p) {
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate((p.rotation * Math.PI) / 180);
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.bezierCurveTo(p.size * 0.8, -p.size * 0.7, p.size * 1.1, p.size * 0.4, 0, p.size * 1.4);
+    ctx.bezierCurveTo(-p.size * 1.1, p.size * 0.4, -p.size * 0.8, -p.size * 0.7, 0, 0);
+    ctx.fillStyle = `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, ${p.color.a})`;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function render() {
+    ctx.clearRect(0, 0, width, height);
+
+    for (let i = 0; i < petals.length; i++) {
+      const p = petals[i];
+      p.y += p.speedY;
+      p.swayOffset += p.swaySpeed;
+      p.x += Math.sin(p.swayOffset) * 1.2 + p.speedX;
+      p.rotation += p.rotationSpeed;
+
+      // Wrap around or respawn from the top
+      if (p.y > height + 25) {
+        petals[i] = createPetal(false);
+      }
+      if (p.x < -25) p.x = width + 10;
+      if (p.x > width + 25) p.x = -10;
+
+      drawPetal(p);
+    }
+
+    requestAnimationFrame(render);
+  }
+
+  requestAnimationFrame(render);
+}
+
+/* ==========================================================================
+   2. TEXT BLUR SCROLL ANIMATION
    ========================================================================== */
 function initScrollAnimations() {
   const elements = document.querySelectorAll('.anim-blur');
@@ -36,13 +138,12 @@ function initScrollAnimations() {
     const windowHeight = window.innerHeight || document.documentElement.clientHeight;
     elements.forEach(el => {
       const rect = el.getBoundingClientRect();
-      if (rect.top <= windowHeight * 0.92) {
+      if (rect.top <= windowHeight * 0.94) {
         el.classList.add('is-visible');
       }
     });
   }
 
-  // Run on start
   checkViewport();
 
   if (!('IntersectionObserver' in window)) {
@@ -58,19 +159,19 @@ function initScrollAnimations() {
       }
     });
   }, {
-    threshold: 0.08,
-    rootMargin: '0px 0px -30px 0px'
+    threshold: 0.05,
+    rootMargin: '0px 0px -20px 0px'
   });
 
   elements.forEach(el => observer.observe(el));
 }
 
 /* ==========================================================================
-   2. LIVE WEDDING COUNTDOWN TIMER (01 NOVEMBER 2026)
+   3. LIVE WEDDING COUNTDOWN TIMER (01 NOVEMBER 2026)
    ========================================================================== */
 function initWeddingCountdown() {
-  // Target: November 1, 2026 at 10:24 AM IST
-  const targetDate = new Date('2026-11-01T10:24:00+05:30').getTime();
+  // Target: November 1, 2026 at 09:30 AM IST
+  const targetDate = new Date('2026-11-01T09:30:00+05:30').getTime();
 
   const elDays = document.getElementById('cd-days');
   const elHours = document.getElementById('cd-hours');
@@ -107,68 +208,66 @@ function initWeddingCountdown() {
 }
 
 /* ==========================================================================
-   3. INTERACTIVE SCRATCH TO REVEAL CARD (MOBILE TOUCH FIXED)
+   4. INTERACTIVE SCRATCH CARD ENGINE
    ========================================================================== */
 function initScratchCard() {
-  const container = document.getElementById('scratch-container');
   const canvas = document.getElementById('scratch-canvas');
   const hintOverlay = document.getElementById('scratch-hint');
-  const btnQuickReveal = document.getElementById('btn-quick-reveal');
+  const quickBtn = document.getElementById('btn-quick-reveal');
 
-  if (!container || !canvas) return;
+  if (!canvas) return;
+
   const ctx = canvas.getContext('2d');
-
   let isDrawing = false;
-  let isRevealed = false;
+  let scratched = false;
+  let totalPixels = 0;
+  let scratchedPixels = 0;
 
-  function paintCover() {
-    const rect = container.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = rect.height;
+  function setupCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
 
-    // Solid Royal Blue Velvet Gradient
-    const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    grad.addColorStop(0, '#102e64');
-    grad.addColorStop(0.5, '#173f82');
-    grad.addColorStop(1, '#0c234d');
+    totalPixels = rect.width * rect.height;
+    scratchedPixels = 0;
 
-    ctx.globalCompositeOperation = 'source-over';
+    // Draw Royal Krishna Blue Foil Layer with Gold Micro-Specks
+    const w = rect.width;
+    const h = rect.height;
+
+    const grad = ctx.createLinearGradient(0, 0, w, h);
+    grad.addColorStop(0, '#133979');
+    grad.addColorStop(0.5, '#1e488f');
+    grad.addColorStop(1, '#0c2754');
     ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, w, h);
 
-    // Subtle Gold Filigree Border
-    ctx.strokeStyle = 'rgba(212, 175, 55, 0.45)';
-    ctx.lineWidth = 1.5;
-    ctx.strokeRect(8, 8, canvas.width - 16, canvas.height - 16);
-
-    isRevealed = false;
-    canvas.style.opacity = '1';
-    canvas.style.pointerEvents = 'auto';
-    if (hintOverlay) hintOverlay.style.opacity = '1';
-    if (btnQuickReveal) btnQuickReveal.classList.remove('hidden');
-  }
-
-  paintCover();
-  window.addEventListener('resize', () => {
-    if (!isRevealed) paintCover();
-  });
-
-  function scratch(x, y) {
-    if (isRevealed) return;
-
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.beginPath();
-    ctx.arc(x, y, 26, 0, Math.PI * 2);
-    ctx.fill();
-
-    if (hintOverlay && hintOverlay.style.opacity !== '0') {
-      hintOverlay.style.opacity = '0';
+    // Micro gold sparkle specs
+    ctx.fillStyle = 'rgba(212, 175, 55, 0.45)';
+    for (let i = 0; i < 70; i++) {
+      const rx = Math.random() * w;
+      const ry = Math.random() * h;
+      const r = Math.random() * 2 + 0.5;
+      ctx.beginPath();
+      ctx.arc(rx, ry, r, 0, Math.PI * 2);
+      ctx.fill();
     }
 
-    checkScratchProgress();
+    // Elegant inner border on foil
+    ctx.strokeStyle = 'rgba(212, 175, 55, 0.6)';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(10, 10, w - 20, h - 20);
   }
 
-  function getCoordinates(e) {
+  // Wait a tick for boundingClientRect
+  setTimeout(setupCanvas, 100);
+  window.addEventListener('resize', () => {
+    if (!scratched) setupCanvas();
+  });
+
+  function getPos(e) {
     const rect = canvas.getBoundingClientRect();
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
@@ -178,96 +277,121 @@ function initScratchCard() {
     };
   }
 
-  // Mouse Listeners
-  canvas.addEventListener('mousedown', (e) => {
-    isDrawing = true;
-    const { x, y } = getCoordinates(e);
-    scratch(x, y);
-  });
+  function scratch(e) {
+    if (!isDrawing || scratched) return;
+    const pos = getPos(e);
 
-  window.addEventListener('mousemove', (e) => {
-    if (!isDrawing) return;
-    const { x, y } = getCoordinates(e);
-    scratch(x, y);
-  });
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.beginPath();
+    ctx.arc(pos.x, pos.y, 28, 0, Math.PI * 2);
+    ctx.fill();
 
-  window.addEventListener('mouseup', () => {
-    isDrawing = false;
-  });
+    if (hintOverlay) {
+      hintOverlay.style.opacity = '0';
+    }
 
-  // Touch Listeners with e.preventDefault() so mobile screen doesn't drag/scroll
+    scratchedPixels += Math.PI * 28 * 28 * 0.4;
+    if (scratchedPixels / totalPixels > 0.35) {
+      revealFullCard();
+    }
+  }
+
+  function revealFullCard() {
+    if (scratched) return;
+    scratched = true;
+    canvas.style.transition = 'opacity 0.6s ease';
+    canvas.style.opacity = '0';
+    if (hintOverlay) hintOverlay.style.opacity = '0';
+    setTimeout(() => {
+      canvas.style.display = 'none';
+      if (hintOverlay) hintOverlay.style.display = 'none';
+    }, 600);
+    fireConfetti();
+  }
+
+  // Pointer & Touch Events
+  canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
+  canvas.addEventListener('mousemove', scratch);
+  window.addEventListener('mouseup', () => { isDrawing = false; });
+
   canvas.addEventListener('touchstart', (e) => {
-    e.preventDefault();
     isDrawing = true;
-    const { x, y } = getCoordinates(e);
-    scratch(x, y);
+    e.preventDefault();
+    scratch(e);
   }, { passive: false });
 
   canvas.addEventListener('touchmove', (e) => {
-    if (!isDrawing) return;
     e.preventDefault();
-    const { x, y } = getCoordinates(e);
-    scratch(x, y);
+    scratch(e);
   }, { passive: false });
 
-  canvas.addEventListener('touchend', (e) => {
-    e.preventDefault();
-    isDrawing = false;
-  }, { passive: false });
+  window.addEventListener('touchend', () => { isDrawing = false; });
 
-  // Progress check
-  let lastCheck = 0;
-  function checkScratchProgress() {
-    const now = Date.now();
-    if (now - lastCheck < 200) return;
-    lastCheck = now;
-
-    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const pixels = imgData.data;
-    let transparent = 0;
-    const step = 48; // sampling step
-    const totalSampled = pixels.length / step;
-
-    for (let i = 3; i < pixels.length; i += step) {
-      if (pixels[i] === 0) transparent++;
-    }
-
-    if ((transparent / totalSampled) * 100 > 30) {
-      triggerFullReveal();
-    }
-  }
-
-  function triggerFullReveal() {
-    if (isRevealed) return;
-    isRevealed = true;
-
-    canvas.style.transition = 'opacity 0.5s ease';
-    canvas.style.opacity = '0';
-    canvas.style.pointerEvents = 'none';
-    if (hintOverlay) hintOverlay.style.opacity = '0';
-    if (btnQuickReveal) btnQuickReveal.classList.add('hidden');
-
-    fireConfetti();
-    showToast('✨ Auspicious Muhurtham Revealed!');
-  }
-
-  if (btnQuickReveal) {
-    btnQuickReveal.addEventListener('click', triggerFullReveal);
+  if (quickBtn) {
+    quickBtn.addEventListener('click', () => {
+      revealFullCard();
+    });
   }
 }
 
-function copyBlessingCode() {
-  const code = '#RADHE-SHYAM-2026';
-  navigator.clipboard.writeText(code).then(() => {
-    showToast('✨ Pass Code copied to clipboard: ' + code);
-  }).catch(() => {
-    showToast('Blessing Code: ' + code);
+/* ==========================================================================
+   5. GSAP SCROLLTRIGGER EVENT CARDS STACKING DECK
+   Matching the Hanisha template scroll deck feel
+   ========================================================================== */
+function initEventCardsScrollTrigger() {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const cards = Array.from(document.querySelectorAll('.event-card-item'));
+  if (!cards.length) return;
+
+  cards.forEach((card, idx) => {
+    const nextCard = cards[idx + 1];
+    if (nextCard) {
+      gsap.to(card, {
+        scale: 0.93,
+        opacity: 0.7,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: nextCard,
+          start: 'top 75%',
+          end: 'top 18%',
+          scrub: true,
+        }
+      });
+    }
   });
 }
 
 /* ==========================================================================
-   4. RESPONSIVE RSVP SYSTEM
+   6. RESPONSIVE RSVP SYSTEM WITH CONDITIONAL ATTENDANCE
+   When 'Regretfully Decline' is selected: hides number of guests & events
    ========================================================================== */
+function initRsvpAttendanceToggle() {
+  const attendingRadios = document.querySelectorAll('input[name="attending"]');
+  const attendanceDetails = document.getElementById('rsvp-attendance-details');
+
+  attendingRadios.forEach(radio => {
+    radio.addEventListener('change', (e) => {
+      // Toggle active border styling on radio-card containers
+      document.querySelectorAll('.attendance-radios .radio-card').forEach(c => c.classList.remove('active'));
+      e.target.closest('.radio-card').classList.add('active');
+
+      const isAttending = e.target.value === 'yes';
+      if (attendanceDetails) {
+        if (isAttending) {
+          attendanceDetails.style.display = 'block';
+        } else {
+          // Hide number of guests and events attending when declining
+          attendanceDetails.style.display = 'none';
+        }
+      }
+    });
+  });
+}
+
 function initRsvpExpander() {
   const toggleBar = document.getElementById('rsvp-toggle-bar');
   const wrapper = document.getElementById('rsvp-form-wrapper');
@@ -288,7 +412,8 @@ function handleRsvpSubmit(e) {
   const phone = document.getElementById('rsvp-phone').value.trim();
   const attendingRadio = document.querySelector('input[name="attending"]:checked');
   const attending = attendingRadio ? attendingRadio.value : 'yes';
-  const guests = document.getElementById('rsvp-guests').value;
+  const guestsEl = document.getElementById('rsvp-guests');
+  const guests = guestsEl ? guestsEl.value : '1';
   const message = document.getElementById('rsvp-message').value.trim();
 
   const eventsChecked = Array.from(document.querySelectorAll('input[name="events"]:checked'))
@@ -299,8 +424,8 @@ function handleRsvpSubmit(e) {
     name,
     phone,
     attending,
-    guests,
-    events: eventsChecked,
+    guests: attending === 'yes' ? guests : '0',
+    events: attending === 'yes' ? eventsChecked : 'None',
     message,
     timestamp: new Date().toISOString()
   };
@@ -316,15 +441,15 @@ function handleRsvpSubmit(e) {
   if (nameDisplay) nameDisplay.textContent = name;
   if (summaryDetails) {
     summaryDetails.innerHTML = attending === 'yes'
-      ? `🎉 Attending with <strong>${guests}</strong> guest(s) for <strong>${eventsChecked || 'Celebrations'}</strong>`
-      : `🕊️ Heartfelt wishes sent from afar`;
+      ? `🎉 Attending with <strong>${guests}</strong> guest(s) for <strong>${eventsChecked || 'All Celebrations'}</strong>`
+      : `🕊️ Heartfelt blessings received with warm gratitude from afar`;
   }
 
   form.classList.add('hidden');
   successBox.classList.remove('hidden');
 
   fireConfetti();
-  showToast('🌸 Your RSVP has been confirmed with joy!');
+  showToast(attending === 'yes' ? '🌸 Your RSVP has been confirmed with joy!' : '🕊️ Thank you for your warm wishes!');
 }
 
 function resetRsvpForm() {
@@ -350,7 +475,7 @@ function checkExistingRsvp() {
 }
 
 /* ==========================================================================
-   5. SOCIAL SHARING & UTILITIES
+   7. SOCIAL SHARING & UTILITIES
    ========================================================================== */
 function shareOnWhatsApp() {
   const groom = 'Hemanth';

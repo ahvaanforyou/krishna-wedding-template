@@ -72,6 +72,17 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Continuous Falling Flower Petals Canvas */
+#flower-petals-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 90;
+}
+
 img {
   max-width: 100%;
   height: auto;
@@ -402,34 +413,37 @@ button {
   justify-content: flex-start;
 }
 
-/* Peeking Figures Flush to Phone Screen Border */
+/* Peeking Figures Flush to Phone Screen Border (Zero Whitespace) */
 .peeking-icon-wrap {
   position: absolute;
   bottom: 0;
   z-index: 10;
   pointer-events: auto;
   transition: transform var(--transition-smooth);
+  display: flex;
+  align-items: flex-end;
 }
 
 /* Krishna touches EXACT left phone screen border */
 .krishna-peeking-wrap {
   left: calc(-1 * var(--container-pad));
-  width: 44%;
-  max-width: 175px;
+  width: 28%;
+  max-width: 105px;
 }
 
 /* Radha touches EXACT right phone screen border */
 .radha-peeking-wrap {
   right: calc(-1 * var(--container-pad));
-  width: 44%;
-  max-width: 175px;
+  width: 28%;
+  max-width: 105px;
 }
 
 .peeking-character-img {
   width: 100%;
-  height: auto;
+  max-height: 250px;
+  object-fit: contain;
   display: block;
-  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.18));
   transition: transform 0.3s ease;
 }
 
@@ -441,8 +455,8 @@ button {
 .member-photo-card {
   position: relative;
   z-index: 5;
-  width: 63%;
-  max-width: 250px;
+  width: 68%;
+  max-width: 260px;
   aspect-ratio: 3 / 4;
   background: #f0ebe1;
   border-radius: var(--radius-sm);
@@ -452,11 +466,13 @@ button {
 }
 
 .groom-layout .member-photo-card {
-  margin-right: 8px;
+  margin-right: 0;
+  margin-left: auto;
 }
 
 .bride-layout .member-photo-card {
-  margin-left: 8px;
+  margin-left: 0;
+  margin-right: auto;
 }
 
 .hover-lift:hover {
@@ -684,137 +700,371 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   6. ORDER OF EVENTS SECTION (WITH CONTENT ON TOP OF EVENT CARDS)
+   REUSABLE SECTION TITLES & FLOURISHES
    -------------------------------------------------------------------------- */
-.section-events {
-  margin-bottom: 45px;
+.section-title-wrap {
   text-align: center;
+  margin-bottom: 22px;
+  padding: 0 10px;
 }
 
-.events-main-title {
-  font-family: var(--font-heading);
-  font-size: 2.2rem;
-  font-weight: 400;
-  color: var(--color-text-main);
-  margin-bottom: 24px;
-  letter-spacing: 0.5px;
-}
-
-.events-banner-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 26px;
-  width: 100%;
-}
-
-.event-card-item {
-  background: #ffffff;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: 0 10px 28px rgba(19, 57, 121, 0.09);
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
-}
-
-.event-card-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 34px rgba(19, 57, 121, 0.16);
-}
-
-/* Event Card Top Content */
-.event-card-top-content {
-  padding: 18px 16px 14px;
-  text-align: center;
-  background: linear-gradient(to bottom, #fdfbf7, #ffffff);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
-}
-
-.event-badge-tag {
+.section-badge {
   display: inline-block;
   font-family: var(--font-serif);
   font-size: 0.68rem;
   letter-spacing: 2px;
   text-transform: uppercase;
   font-weight: 700;
-  padding: 3px 12px;
-  border-radius: var(--radius-full);
-  margin-bottom: 6px;
-}
-
-.wedding-tag {
-  background: rgba(19, 57, 121, 0.09);
-  color: var(--color-royal-blue);
-  border: 1px solid rgba(19, 57, 121, 0.2);
-}
-
-.reception-tag {
-  background: rgba(217, 70, 239, 0.1);
-  color: #a21caf;
-  border: 1px solid rgba(217, 70, 239, 0.2);
-}
-
-.haldi-tag {
-  background: rgba(245, 158, 11, 0.12);
-  color: #b45309;
-  border: 1px solid rgba(245, 158, 11, 0.25);
-}
-
-.event-card-title {
-  font-family: var(--font-heading);
-  font-size: 1.35rem;
-  color: var(--color-royal-blue);
-  font-weight: 600;
+  color: var(--color-gold-dark);
   margin-bottom: 4px;
 }
 
-.event-card-desc {
-  font-family: var(--font-verse);
-  font-size: 0.95rem;
-  color: var(--color-text-muted);
-  line-height: 1.35;
-  margin-bottom: 8px;
-  padding: 0 8px;
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 2.1rem;
+  font-weight: 500;
+  color: var(--color-royal-blue);
+  line-height: 1.2;
+  margin-bottom: 6px;
 }
 
-.event-card-meta {
+.section-subtitle {
+  font-family: var(--font-verse);
+  font-size: 0.98rem;
+  color: var(--color-text-muted);
+  max-width: 340px;
+  margin: 0 auto 10px;
+  line-height: 1.35;
+}
+
+.section-divider-flourish {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--color-text-soft);
-  flex-wrap: wrap;
+  gap: 12px;
+  max-width: 180px;
+  margin: 0 auto 10px;
 }
 
-.event-card-meta span {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.event-card-meta i {
-  width: 14px;
-  height: 14px;
-  color: var(--color-gold-dark);
-}
-
-/* Event Banner Artwork */
-.event-banner-wrap {
-  width: 100%;
+/* --------------------------------------------------------------------------
+   6. PHOTO GALLERY CAROUSEL SECTION
+   Swift continuous marquee carousel with hover/touch pause
+   -------------------------------------------------------------------------- */
+.section-gallery {
+  margin-bottom: 50px;
   overflow: hidden;
-  background: #fdfbf7;
+}
+
+.gallery-carousel-viewport {
+  width: calc(100% + (2 * var(--container-pad)));
+  margin-left: calc(-1 * var(--container-pad));
+  overflow: hidden;
+  position: relative;
+  padding: 8px 0 14px;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.gallery-carousel-track {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  animation: galleryMarquee 20s linear infinite;
+  will-change: transform;
+}
+
+.gallery-carousel-viewport:hover .gallery-carousel-track,
+.gallery-carousel-viewport:active .gallery-carousel-track {
+  animation-play-state: paused;
+}
+
+@keyframes galleryMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.gallery-slide {
+  flex: 0 0 155px;
+  width: 155px;
+}
+
+.gallery-slide-card {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 0 8px 20px rgba(19, 57, 121, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-slide-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.gallery-slide-card:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 12px 28px rgba(19, 57, 121, 0.22);
+}
+
+.gallery-slide-card:hover img {
+  transform: scale(1.06);
+}
+
+/* --------------------------------------------------------------------------
+   7. ORDER OF EVENTS SECTION (SCROLL TRIGGER STACKING)
+   Event details placed directly INSIDE the white parchment space of each banner!
+   -------------------------------------------------------------------------- */
+.section-events {
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.events-banner-stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+/* Stacking sticky card trigger like Hanisha event cards */
+.event-card-item {
+  position: sticky;
+  top: 14vh;
+  margin-bottom: 22px;
+  transform-origin: top center;
+  will-change: transform, opacity;
+  background: transparent;
+  border-radius: var(--radius-md);
+  box-shadow: 0 12px 30px rgba(19, 57, 121, 0.12);
+  transition: box-shadow 0.3s ease;
+}
+
+.event-card-item:nth-child(1) { z-index: 1; }
+.event-card-item:nth-child(2) { z-index: 2; }
+.event-card-item:nth-child(3) { z-index: 3; }
+
+.event-banner-wrap {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: #fbf8f2;
 }
 
 .event-banner-artwork {
   width: 100%;
   height: auto;
   display: block;
-  transition: transform var(--transition-smooth);
 }
 
-.event-card-item:hover .event-banner-artwork {
-  transform: scale(1.02);
+/* Inner overlay sitting EXACTLY inside the blank/parchment space of the card image */
+.event-card-inner-overlay {
+  position: absolute;
+  top: 10%;
+  right: 4%;
+  width: 52%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 4px 6px;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.event-inner-tag {
+  font-family: var(--font-serif);
+  font-size: 0.58rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 2px;
+  line-height: 1;
+}
+
+.haldi-tag { color: #b45309; }
+.wedding-tag { color: #8b1e2c; }
+.reception-tag { color: #133979; }
+
+.event-inner-title {
+  font-family: var(--font-heading);
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--color-royal-blue);
+  line-height: 1.15;
+  margin: 2px 0 4px;
+}
+
+.event-inner-desc {
+  font-family: var(--font-verse);
+  font-size: 0.68rem;
+  color: #4a453e;
+  line-height: 1.22;
+  margin: 0 auto 5px;
+  max-width: 95%;
+}
+
+.event-inner-datetime {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--color-royal-blue);
+  flex-wrap: wrap;
+}
+
+.date-badge, .time-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+}
+
+.date-badge svg, .time-badge svg {
+  width: 10px;
+  height: 10px;
+  color: var(--color-gold-dark);
+}
+
+@media (min-width: 420px) {
+  .event-inner-tag { font-size: 0.66rem; }
+  .event-inner-title { font-size: 1.25rem; }
+  .event-inner-desc { font-size: 0.76rem; }
+  .event-inner-datetime { font-size: 0.7rem; }
+  .date-badge svg, .time-badge svg { width: 12px; height: 12px; }
+}
+
+/* --------------------------------------------------------------------------
+   8. VENUE & LOCATION MAP SECTION (BEFORE RSVP)
+   -------------------------------------------------------------------------- */
+.section-venue-map {
+  margin-bottom: 45px;
+}
+
+.venue-card-wrapper {
+  background: #ffffff;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: var(--radius-md);
+  padding: 22px 18px 20px;
+  box-shadow: 0 10px 30px rgba(19, 57, 121, 0.08);
+  text-align: center;
+}
+
+.venue-icon-circle {
+  width: 42px;
+  height: 42px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.14);
+  border: 1px solid var(--color-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-royal-blue);
+}
+
+.venue-pin-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.venue-name {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-royal-blue);
+  margin-bottom: 4px;
+  line-height: 1.25;
+}
+
+.venue-subname {
+  font-size: 0.84rem;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+  line-height: 1.35;
+}
+
+.venue-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #8b1e2c;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed rgba(212, 175, 55, 0.4);
+}
+
+.venue-meta-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.venue-meta-row svg {
+  width: 14px;
+  height: 14px;
+}
+
+.venue-map-frame {
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  margin-bottom: 16px;
+}
+
+.venue-map-frame iframe {
+  display: block;
+}
+
+.venue-directions-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--color-royal-blue);
+  color: #ffffff;
+  padding: 10px 22px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-serif);
+  font-size: 0.76rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(19, 57, 121, 0.2);
+  transition: all 0.25s ease;
+}
+
+.venue-directions-btn:hover {
+  background: #0f2e63;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(19, 57, 121, 0.3);
+}
+
+.venue-directions-btn svg {
+  width: 15px;
+  height: 15px;
+  color: var(--color-gold-light);
 }
 
 /* --------------------------------------------------------------------------
