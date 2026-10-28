@@ -338,6 +338,26 @@ button {
   margin-bottom: 20px;
 }
 
+/* Auspicious White & Gold Lotus Crown Emblem */
+.intro-lotus-ornament {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 10px;
+}
+
+.decor-lotus-img {
+  width: 140px;
+  max-width: 42%;
+  height: auto;
+  filter: drop-shadow(0 6px 14px rgba(19, 57, 121, 0.12));
+  transition: transform 0.4s ease;
+}
+
+.decor-lotus-img:hover {
+  transform: scale(1.04);
+}
+
 .intro-badge {
   display: inline-block;
   font-family: var(--font-serif);
@@ -533,6 +553,26 @@ button {
 .section-scratch {
   margin: 10px auto 44px;
   max-width: 420px;
+}
+
+/* Sacred Makhan Matka (Butter Pot with Peacock Feather) Decoration */
+.scratch-matka-decor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 12px;
+}
+
+.decor-matka-img {
+  width: 95px;
+  max-width: 28%;
+  height: auto;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.14));
+  transition: transform 0.3s ease;
+}
+
+.decor-matka-img:hover {
+  transform: scale(1.06) rotate(-2deg);
 }
 
 /* Scratch Box */
@@ -1015,6 +1055,26 @@ button {
   margin-bottom: 45px;
 }
 
+/* Royal Blue & White Floral Crest Decoration */
+.venue-floral-crest-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 12px;
+}
+
+.decor-floral-crest-img {
+  width: 135px;
+  max-width: 40%;
+  height: auto;
+  filter: drop-shadow(0 6px 14px rgba(19, 57, 121, 0.1));
+  transition: transform 0.3s ease;
+}
+
+.decor-floral-crest-img:hover {
+  transform: scale(1.05);
+}
+
 .venue-card-wrapper {
   background: #ffffff;
   border: 1px solid rgba(212, 175, 55, 0.45);
@@ -1452,6 +1512,26 @@ button {
   font-size: 1.8rem;
   color: var(--color-royal-blue-light);
   margin: -2px 0;
+}
+
+/* Auspicious Lotus Divider Emblem */
+.hosts-lotus-decor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px auto 8px;
+}
+
+.decor-hosts-lotus-img {
+  width: 120px;
+  max-width: 36%;
+  height: auto;
+  filter: drop-shadow(0 4px 12px rgba(19, 57, 121, 0.1));
+  transition: transform 0.3s ease;
+}
+
+.decor-hosts-lotus-img:hover {
+  transform: scale(1.05);
 }
 
 .celebrating-tagline {
