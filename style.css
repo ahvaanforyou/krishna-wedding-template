@@ -17,7 +17,7 @@
   --color-text-muted: #4a5568;
   --color-text-soft: #718096;
   
-  --bg-page: #fbf8f2;
+  --bg-page: #F3F5FA;
   --bg-card: #ffffff;
   
   --container-pad: 16px;
@@ -50,7 +50,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
-  background-color: #fcf4de;
+  background-color: #F3F5FA;
   color: var(--color-text-main);
   -webkit-text-size-adjust: 100%;
 }
@@ -59,7 +59,7 @@ body {
   font-family: var(--font-sans);
   line-height: 1.5;
   min-height: 100vh;
-  background-color: #fcf4de;
+  background-color: #F3F5FA;
   overflow-x: clip;
   display: flex;
   justify-content: center;
@@ -106,7 +106,7 @@ button {
 .invite-container {
   width: 100%;
   max-width: 480px;
-  background-color: #fcf4de;
+  background-color: #F3F5FA;
   min-height: 100vh;
   box-shadow: 0 15px 50px rgba(19, 57, 121, 0.12), 0 0 0 1px rgba(212, 175, 55, 0.3);
   padding: 0 var(--container-pad) 40px;
@@ -501,7 +501,7 @@ button {
   position: relative;
   width: 100%;
   aspect-ratio: 3 / 4;
-  background: #f0ebe1;
+  background: #F3F5FA;
   border-radius: var(--radius-sm);
   overflow: hidden;
   box-shadow: 0 10px 26px rgba(19, 57, 121, 0.14), 0 0 0 1px rgba(212, 175, 55, 0.35);
@@ -855,7 +855,7 @@ button {
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  background: #fbf8f2;
+  background: #F3F5FA;
 }
 
 .big-photo-frame img {
@@ -1679,7 +1679,7 @@ h1, h2, h3, h4,
   align-items: center;
   gap: 8px;
   padding: 8px 14px 8px 10px;
-  background: rgba(253, 244, 222, 0.94);
+  background: rgba(243, 245, 250, 0.94);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1.5px solid rgba(212, 175, 55, 0.65);
