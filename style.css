@@ -64,7 +64,7 @@ body {
   font-family: var(--font-sans);
   line-height: 1.5;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip;
   display: flex;
   justify-content: center;
   padding: 0;
@@ -115,7 +115,8 @@ button {
   box-shadow: 0 15px 50px rgba(19, 57, 121, 0.12), 0 0 0 1px rgba(212, 175, 55, 0.3);
   padding: 0 var(--container-pad) 40px;
   position: relative;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 @media (min-width: 600px) {
@@ -253,11 +254,12 @@ button {
 /* Hero Date */
 .hero-date {
   font-family: var(--font-serif);
-  font-size: 1rem;
+  font-size: 0.92rem;
   font-weight: 600;
-  letter-spacing: 6px;
-  color: var(--color-text-main);
+  letter-spacing: 2px;
+  color: var(--color-royal-blue);
   margin-bottom: 28px;
+  white-space: nowrap;
 }
 
 /* Radha Krishna Hero Artwork */
@@ -386,12 +388,15 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   3 & 4. GROOM & BRIDE SECTIONS (INTERCHANGED)
-   Side mini figures touch phone screen borders directly without floating!
+   3 & 4. BRIDE & GROOM SECTIONS
+   Side mini figures stick directly to phone screen borders with ZERO gap!
    -------------------------------------------------------------------------- */
 .section-couple-member {
   position: relative;
-  margin-bottom: 45px;
+  margin-bottom: 40px;
+  width: calc(100% + (2 * var(--container-pad)));
+  margin-left: calc(-1 * var(--container-pad));
+  margin-right: calc(-1 * var(--container-pad));
   overflow: visible;
 }
 
@@ -400,48 +405,50 @@ button {
   display: flex;
   align-items: flex-end;
   width: 100%;
-  min-height: 320px;
+  min-height: 290px;
+  padding: 0 var(--container-pad);
+  box-sizing: border-box;
 }
 
-/* Groom Row: Groom Card on Right, Krishna Touching Left Phone Screen Border */
-.groom-layout {
+/* Top Row: Bride Card on Right, Krishna Touching Left Phone Screen Border */
+.top-member-layout {
   justify-content: flex-end;
 }
 
-/* Bride Row: Bride Card on Left, Radha Touching Right Phone Screen Border */
-.bride-layout {
+/* Bottom Row: Groom Card on Left, Radha Touching Right Phone Screen Border */
+.bottom-member-layout {
   justify-content: flex-start;
 }
 
-/* Peeking Figures Flush to Phone Screen Border (Zero Whitespace) */
-.peeking-icon-wrap {
+/* Krishna touches EXACT physical left phone screen border */
+.krishna-peeking-wrap {
   position: absolute;
+  left: 0;
   bottom: 0;
+  width: 27%;
+  max-width: 95px;
   z-index: 10;
   pointer-events: auto;
-  transition: transform var(--transition-smooth);
   display: flex;
   align-items: flex-end;
 }
 
-/* Krishna touches EXACT left phone screen border */
-.krishna-peeking-wrap {
-  left: calc(-1 * var(--container-pad));
-  width: 28%;
-  max-width: 105px;
-}
-
-/* Radha touches EXACT right phone screen border */
+/* Radha touches EXACT physical right phone screen border */
 .radha-peeking-wrap {
-  right: calc(-1 * var(--container-pad));
-  width: 28%;
-  max-width: 105px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 27%;
+  max-width: 95px;
+  z-index: 10;
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-end;
 }
 
 .peeking-character-img {
   width: 100%;
-  max-height: 250px;
-  object-fit: contain;
+  height: auto;
   display: block;
   filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.18));
   transition: transform 0.3s ease;
@@ -455,8 +462,8 @@ button {
 .member-photo-card {
   position: relative;
   z-index: 5;
-  width: 68%;
-  max-width: 260px;
+  width: 70%;
+  max-width: 255px;
   aspect-ratio: 3 / 4;
   background: #f0ebe1;
   border-radius: var(--radius-sm);
@@ -465,12 +472,12 @@ button {
   transition: all var(--transition-smooth);
 }
 
-.groom-layout .member-photo-card {
+.top-member-layout .member-photo-card {
   margin-right: 0;
   margin-left: auto;
 }
 
-.bride-layout .member-photo-card {
+.bottom-member-layout .member-photo-card {
   margin-left: 0;
   margin-right: auto;
 }
@@ -747,108 +754,170 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   6. PHOTO GALLERY CAROUSEL SECTION
-   Swift continuous marquee carousel with hover/touch pause
+   6. PHOTO GALLERY SECTION
+   Simple big horizontal images with interactive arrow buttons & swipe
    -------------------------------------------------------------------------- */
 .section-gallery {
   margin-bottom: 50px;
-  overflow: hidden;
-}
-
-.gallery-carousel-viewport {
-  width: calc(100% + (2 * var(--container-pad)));
-  margin-left: calc(-1 * var(--container-pad));
-  overflow: hidden;
   position: relative;
-  padding: 8px 0 14px;
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }
 
-.gallery-carousel-track {
+.big-carousel-wrapper {
+  position: relative;
   display: flex;
-  gap: 14px;
-  width: max-content;
-  animation: galleryMarquee 20s linear infinite;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.big-carousel-viewport {
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 28px rgba(19, 57, 121, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: #ffffff;
+}
+
+.big-carousel-slides {
+  display: flex;
+  width: 100%;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   will-change: transform;
 }
 
-.gallery-carousel-viewport:hover .gallery-carousel-track,
-.gallery-carousel-viewport:active .gallery-carousel-track {
-  animation-play-state: paused;
-}
-
-@keyframes galleryMarquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.gallery-slide {
-  flex: 0 0 155px;
-  width: 155px;
-}
-
-.gallery-slide-card {
+.big-slide-item {
+  flex: 0 0 100%;
   width: 100%;
-  aspect-ratio: 3 / 4;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  background: #ffffff;
-  border: 1px solid rgba(212, 175, 55, 0.45);
-  box-shadow: 0 8px 20px rgba(19, 57, 121, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
 }
 
-.gallery-slide-card img {
+.big-photo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #fbf8f2;
+}
+
+.big-photo-frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.4s ease;
 }
 
-.gallery-slide-card:hover {
-  transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 12px 28px rgba(19, 57, 121, 0.22);
+/* Arrow Navigation Buttons */
+.carousel-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1.5px solid rgba(212, 175, 55, 0.7);
+  color: var(--color-royal-blue);
+  box-shadow: 0 6px 16px rgba(19, 57, 121, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.25s ease;
 }
 
-.gallery-slide-card:hover img {
-  transform: scale(1.06);
+.carousel-nav-btn:hover {
+  background: var(--color-royal-blue);
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.carousel-nav-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.prev-btn {
+  left: -14px;
+}
+
+.next-btn {
+  right: -14px;
+}
+
+/* Dots navigation */
+.carousel-dots-indicators {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.35);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.carousel-dot.active {
+  background: var(--color-royal-blue);
+  width: 22px;
+  border-radius: var(--radius-full);
 }
 
 /* --------------------------------------------------------------------------
    7. ORDER OF EVENTS SECTION (SCROLL TRIGGER STACKING)
-   Event details placed directly INSIDE the white parchment space of each banner!
+   Clean, elegant cards matching Attachment 1, with physical deck stacking!
    -------------------------------------------------------------------------- */
 .section-events {
   margin-bottom: 50px;
   position: relative;
+  overflow: visible;
+  padding-bottom: 40px;
 }
 
 .events-banner-stack {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  width: 100%;
+  overflow: visible;
 }
 
-/* Stacking sticky card trigger like Hanisha event cards */
+/* Stacking sticky cards like Hanisha cards */
 .event-card-item {
   position: sticky;
-  top: 14vh;
-  margin-bottom: 22px;
+  margin-bottom: 35px;
   transform-origin: top center;
   will-change: transform, opacity;
   background: transparent;
   border-radius: var(--radius-md);
-  box-shadow: 0 12px 30px rgba(19, 57, 121, 0.12);
+  box-shadow: 0 12px 30px rgba(19, 57, 121, 0.16);
   transition: box-shadow 0.3s ease;
 }
 
-.event-card-item:nth-child(1) { z-index: 1; }
-.event-card-item:nth-child(2) { z-index: 2; }
-.event-card-item:nth-child(3) { z-index: 3; }
+/* Staggered sticky tops so each card stays visible and stacks physically */
+.event-card-item:nth-child(1) {
+  top: 13vh;
+  z-index: 1;
+}
+
+.event-card-item:nth-child(2) {
+  top: 17vh;
+  z-index: 2;
+}
+
+.event-card-item:nth-child(3) {
+  top: 21vh;
+  z-index: 3;
+  margin-bottom: 0;
+}
 
 .event-banner-wrap {
   position: relative;
@@ -865,88 +934,78 @@ button {
   display: block;
 }
 
-/* Inner overlay sitting EXACTLY inside the blank/parchment space of the card image */
+/* Overlay for text inside the card image parchment (Matching Attachment 1) */
 .event-card-inner-overlay {
   position: absolute;
-  top: 10%;
-  right: 4%;
-  width: 52%;
-  height: 80%;
+  top: 0;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 4px 6px;
-  box-sizing: border-box;
   pointer-events: none;
 }
 
-.event-inner-tag {
-  font-family: var(--font-serif);
-  font-size: 0.58rem;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  font-weight: 700;
-  margin-bottom: 2px;
-  line-height: 1;
+.overlay-right {
+  right: 5%;
+  width: 52%;
 }
 
-.haldi-tag { color: #b45309; }
-.wedding-tag { color: #8b1e2c; }
-.reception-tag { color: #133979; }
-
-.event-inner-title {
-  font-family: var(--font-heading);
-  font-size: 1.08rem;
-  font-weight: 700;
-  color: var(--color-royal-blue);
-  line-height: 1.15;
-  margin: 2px 0 4px;
+.overlay-left {
+  left: 5%;
+  width: 52%;
 }
 
-.event-inner-desc {
-  font-family: var(--font-verse);
-  font-size: 0.68rem;
-  color: #4a453e;
-  line-height: 1.22;
-  margin: 0 auto 5px;
-  max-width: 95%;
+/* Event Titles & Dates matching Attachment 1 */
+.event-custom-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 2.1rem;
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: 0.5px;
 }
 
-.event-inner-datetime {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  font-size: 0.62rem;
-  font-weight: 600;
-  color: var(--color-royal-blue);
-  flex-wrap: wrap;
+.title-wedding {
+  color: #235fb3;
 }
 
-.date-badge, .time-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  background: rgba(255, 255, 255, 0.85);
-  padding: 2px 6px;
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(212, 175, 55, 0.35);
+.title-reception {
+  color: #e11d48;
 }
 
-.date-badge svg, .time-badge svg {
-  width: 10px;
-  height: 10px;
-  color: var(--color-gold-dark);
+.title-haldi {
+  color: #65a30d;
+}
+
+.event-custom-date {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  margin-top: 3px;
+  letter-spacing: 1px;
+}
+
+.date-wedding {
+  color: #235fb3;
+}
+
+.date-reception {
+  color: #e11d48;
+}
+
+.date-haldi {
+  color: #65a30d;
 }
 
 @media (min-width: 420px) {
-  .event-inner-tag { font-size: 0.66rem; }
-  .event-inner-title { font-size: 1.25rem; }
-  .event-inner-desc { font-size: 0.76rem; }
-  .event-inner-datetime { font-size: 0.7rem; }
-  .date-badge svg, .time-badge svg { width: 12px; height: 12px; }
+  .event-custom-title {
+    font-size: 2.5rem;
+  }
+  .event-custom-date {
+    font-size: 1.3rem;
+  }
 }
 
 /* --------------------------------------------------------------------------

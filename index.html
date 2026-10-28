@@ -23,15 +23,15 @@
 </head>
 <body class="theme-krishna">
 
-  <!-- Continuous Falling Flower Petals Canvas Overlay -->
+  <!-- Continuous Falling Flower Petals Canvas Overlay (Flowers & Petals Only, No Hearts) -->
   <canvas id="flower-petals-canvas" aria-hidden="true"></canvas>
 
   <!-- Main Container -->
   <main class="invite-container">
 
     <!-- ============================================== -->
-    <!-- 1. EXPANDED GRAND HERO SECTION -->
-    <!-- Full-height opening screen with royal breathing room -->
+    <!-- 1. GRAND HERO SECTION -->
+    <!-- Full-height opening screen with single-line date -->
     <!-- ============================================== -->
     <header class="section-hero anim-blur">
       <div class="hero-inner-content">
@@ -54,9 +54,9 @@
           <span class="div-line"></span>
         </div>
 
-        <!-- Wedding Date Line -->
+        <!-- Single Line Wedding Date -->
         <div class="hero-date">
-          <span>0 1 &nbsp; N O V E M B E R &nbsp; 2 0 2 6</span>
+          <span>01 NOVEMBER 2026</span>
         </div>
 
         <!-- Radha Krishna Sitting on Floral Bench Artwork -->
@@ -80,7 +80,6 @@
 
     <!-- ============================================== -->
     <!-- 2. INTRODUCING THE COUPLE SECTION HEADING -->
-    <!-- Clear, elegant transition between hero & couple photos -->
     <!-- ============================================== -->
     <div class="couple-intro-header anim-blur">
       <div class="intro-badge">✦ THE SACRED UNION ✦</div>
@@ -94,13 +93,13 @@
     </div>
 
     <!-- ============================================== -->
-    <!-- 3. GROOM PIC SECTION (Top) -->
-    <!-- Baby Krishna flush against the left phone screen border -->
+    <!-- 3. BRIDE PIC SECTION (Top) -->
+    <!-- Baby Krishna on Left, sticking directly to the page border -->
     <!-- ============================================== -->
-    <section class="section-couple-member section-groom anim-blur">
-      <div class="couple-member-row groom-layout">
+    <section class="section-couple-member section-couple-top anim-blur">
+      <div class="couple-member-row top-member-layout">
         
-        <!-- Baby Krishna Flush Against Left Phone Screen Border (Zero whitespace) -->
+        <!-- Baby Krishna touching the absolute left border of the phone screen (Zero gap) -->
         <div class="peeking-icon-wrap krishna-peeking-wrap">
           <img 
             src="assets/krishna-peeking.png" 
@@ -109,31 +108,7 @@
           />
         </div>
 
-        <!-- Groom Photo Card with AI Groom Portrait -->
-        <div class="member-photo-card groom-card hover-lift">
-          <div class="card-inner-photo">
-            <img 
-              src="assets/ai-groom.jpg" 
-              alt="Groom Portrait" 
-              class="actual-portrait-img" 
-            />
-            <div class="photo-script-overlay">
-              <span class="photo-script-title">Groom pic</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ============================================== -->
-    <!-- 4. BRIDE PIC SECTION (Bottom) -->
-    <!-- Baby Radha flush against the right phone screen border -->
-    <!-- ============================================== -->
-    <section class="section-couple-member section-bride anim-blur">
-      <div class="couple-member-row bride-layout">
-        
-        <!-- Bride Photo Card with AI Bride Portrait -->
+        <!-- Bride Photo Card -->
         <div class="member-photo-card bride-card hover-lift">
           <div class="card-inner-photo">
             <img 
@@ -147,7 +122,31 @@
           </div>
         </div>
 
-        <!-- Baby Radha Flush Against Right Phone Screen Border (Zero whitespace) -->
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- 4. GROOM PIC SECTION (Bottom) -->
+    <!-- Groom Pic on Left, Baby Radha on Right sticking directly to the page border -->
+    <!-- ============================================== -->
+    <section class="section-couple-member section-couple-bottom anim-blur">
+      <div class="couple-member-row bottom-member-layout">
+        
+        <!-- Groom Photo Card -->
+        <div class="member-photo-card groom-card hover-lift">
+          <div class="card-inner-photo">
+            <img 
+              src="assets/ai-groom.jpg" 
+              alt="Groom Portrait" 
+              class="actual-portrait-img" 
+            />
+            <div class="photo-script-overlay">
+              <span class="photo-script-title">Groom pic</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Baby Radha touching the absolute right border of the phone screen (Zero gap) -->
         <div class="peeking-icon-wrap radha-peeking-wrap">
           <img 
             src="assets/radha-peeking.png" 
@@ -161,7 +160,6 @@
 
     <!-- ============================================== -->
     <!-- 5. SCRATCH TO REVEAL THE WEDDING COUNTDOWN TIMER -->
-    <!-- Scratch card hides the live ticking countdown timer -->
     <!-- ============================================== -->
     <section class="section-scratch anim-blur">
       
@@ -218,8 +216,8 @@
     </section>
 
     <!-- ============================================== -->
-    <!-- 6. PHOTO GALLERY CAROUSEL SECTION -->
-    <!-- Swift continuous carousel before event cards -->
+    <!-- 6. PHOTO GALLERY SECTION -->
+    <!-- Simple big horizontal images with arrow buttons & swipe -->
     <!-- ============================================== -->
     <section class="section-gallery anim-blur" id="gallery">
       <div class="section-title-wrap">
@@ -233,36 +231,66 @@
         <p class="section-subtitle">A glimpse into our journey of love, friendship, and divine togetherness</p>
       </div>
 
-      <div class="gallery-carousel-viewport" id="galleryViewport">
-        <div class="gallery-carousel-track" id="galleryTrack">
-          <!-- Slide items -->
-          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/ai-groom.jpg" alt="Groom Portrait" loading="lazy" /></div></div>
-          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/ai-bride.jpg" alt="Bride Portrait" loading="lazy" /></div></div>
-          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/hero-radha-krishna.png" alt="Radha Krishna" loading="lazy" /></div></div>
-          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/test-groom.jpg" alt="Groom Moment" loading="lazy" /></div></div>
-          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/test-bride.jpg" alt="Bride Moment" loading="lazy" /></div></div>
-          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/image 94.png" alt="Couple Joy" loading="lazy" /></div></div>
-          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/image 95.png" alt="Couple Romance" loading="lazy" /></div></div>
-          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/image 96.png" alt="Couple Celebration" loading="lazy" /></div></div>
-          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/radha-krishna-swing.png" alt="Sacred Swing" loading="lazy" /></div></div>
+      <div class="big-carousel-wrapper">
+        <!-- Navigation Arrow Prev -->
+        <button class="carousel-nav-btn prev-btn" id="galleryPrev" aria-label="Previous Photo">
+          <i data-lucide="chevron-left"></i>
+        </button>
 
-          <!-- Duplicated for seamless continuous infinite marquee -->
-          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/ai-groom.jpg" alt="Groom Portrait" loading="lazy" /></div></div>
-          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/ai-bride.jpg" alt="Bride Portrait" loading="lazy" /></div></div>
-          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/hero-radha-krishna.png" alt="Radha Krishna" loading="lazy" /></div></div>
-          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/test-groom.jpg" alt="Groom Moment" loading="lazy" /></div></div>
-          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/test-bride.jpg" alt="Bride Moment" loading="lazy" /></div></div>
-          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/image 94.png" alt="Couple Joy" loading="lazy" /></div></div>
-          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/image 95.png" alt="Couple Romance" loading="lazy" /></div></div>
-          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/image 96.png" alt="Couple Celebration" loading="lazy" /></div></div>
-          <div class="gallery-slide"><div class="gallery-slide-card"><img src="assets/radha-krishna-swing.png" alt="Sacred Swing" loading="lazy" /></div></div>
+        <!-- Carousel Track Viewport -->
+        <div class="big-carousel-viewport" id="galleryViewport">
+          <div class="big-carousel-slides" id="gallerySlides">
+            <div class="big-slide-item active">
+              <div class="big-photo-frame">
+                <img src="assets/image 88.png" alt="Couple Sacred Bond" />
+              </div>
+            </div>
+            <div class="big-slide-item">
+              <div class="big-photo-frame">
+                <img src="assets/image 94.png" alt="Celebration Joy" />
+              </div>
+            </div>
+            <div class="big-slide-item">
+              <div class="big-photo-frame">
+                <img src="assets/image 95.png" alt="Romantic Moments" />
+              </div>
+            </div>
+            <div class="big-slide-item">
+              <div class="big-photo-frame">
+                <img src="assets/image 96.png" alt="Precious Smiles" />
+              </div>
+            </div>
+            <div class="big-slide-item">
+              <div class="big-photo-frame">
+                <img src="assets/ai-bride.jpg" alt="The Radiant Bride" />
+              </div>
+            </div>
+            <div class="big-slide-item">
+              <div class="big-photo-frame">
+                <img src="assets/ai-groom.jpg" alt="The Handsome Groom" />
+              </div>
+            </div>
+            <div class="big-slide-item">
+              <div class="big-photo-frame">
+                <img src="assets/radha-krishna-swing.png" alt="Radha Krishna Swing" />
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- Navigation Arrow Next -->
+        <button class="carousel-nav-btn next-btn" id="galleryNext" aria-label="Next Photo">
+          <i data-lucide="chevron-right"></i>
+        </button>
       </div>
+
+      <!-- Carousel Dots Navigation -->
+      <div class="carousel-dots-indicators" id="galleryDots"></div>
     </section>
 
     <!-- ============================================== -->
     <!-- 7. ORDER OF EVENTS SECTION (SCROLL TRIGGER STACKING) -->
-    <!-- Text placed directly inside the white parchment space of each banner -->
+    <!-- Exactly like Attachment 1 with stacking deck behavior like Hanisha cards -->
     <!-- ============================================== -->
     <section class="section-events anim-blur" id="events">
       <div class="section-title-wrap">
@@ -278,65 +306,47 @@
 
       <div class="events-banner-stack" id="eventsStack">
         
-        <!-- 1. Haldi & Mehendi Celebration Card -->
+        <!-- 1. Wedding Card (Parchment on Right) -->
         <div class="event-card-item" id="event-card-1">
-          <div class="event-banner-wrap hover-banner">
-            <img 
-              src="assets/banner-haldi.png" 
-              alt="Haldi & Mehendi Celebration" 
-              class="event-banner-artwork" 
-            />
-            <!-- Content placed inside the card image's white parchment area -->
-            <div class="event-card-inner-overlay">
-              <span class="event-inner-tag haldi-tag">✦ AUSPICIOUS TURMERIC ✦</span>
-              <h3 class="event-inner-title">Haldi &amp; Mehendi</h3>
-              <p class="event-inner-desc">Vibrant turmeric blessings, henna artistry &amp; folk songs</p>
-              <div class="event-inner-datetime">
-                <span class="date-badge"><i data-lucide="calendar"></i> 22 Oct 2026</span>
-                <span class="time-badge"><i data-lucide="clock"></i> 10:00 AM</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2. Sacred Wedding Ceremony Card -->
-        <div class="event-card-item" id="event-card-2">
-          <div class="event-banner-wrap hover-banner">
+          <div class="event-banner-wrap">
             <img 
               src="assets/banner-wedding.png" 
-              alt="Sacred Vivaah - Wedding Ceremony" 
+              alt="Wedding" 
               class="event-banner-artwork" 
             />
-            <!-- Content placed inside the card image's white parchment area -->
-            <div class="event-card-inner-overlay">
-              <span class="event-inner-tag wedding-tag">✦ SACRED VIVAAH ✦</span>
-              <h3 class="event-inner-title">The Wedding Ceremony</h3>
-              <p class="event-inner-desc">Traditional Vedic Nuptials, Kanyadaan &amp; Saptapadi</p>
-              <div class="event-inner-datetime">
-                <span class="date-badge"><i data-lucide="calendar"></i> 01 Nov 2026</span>
-                <span class="time-badge"><i data-lucide="clock"></i> 09:30 AM</span>
-              </div>
+            <div class="event-card-inner-overlay overlay-right">
+              <h3 class="event-custom-title title-wedding">Wedding</h3>
+              <p class="event-custom-date date-wedding">10-12-2026</p>
             </div>
           </div>
         </div>
 
-        <!-- 3. Grand Reception Card -->
-        <div class="event-card-item" id="event-card-3">
-          <div class="event-banner-wrap hover-banner">
+        <!-- 2. Reception Card (Parchment on Left) -->
+        <div class="event-card-item" id="event-card-2">
+          <div class="event-banner-wrap">
             <img 
               src="assets/banner-reception.png" 
-              alt="The Grand Reception Gala" 
+              alt="Reception" 
               class="event-banner-artwork" 
             />
-            <!-- Content placed inside the card image's white parchment area -->
-            <div class="event-card-inner-overlay">
-              <span class="event-inner-tag reception-tag">✦ EVENING GALA ✦</span>
-              <h3 class="event-inner-title">The Grand Reception</h3>
-              <p class="event-inner-desc">Enchanting evening of classical melodies, feast &amp; joy</p>
-              <div class="event-inner-datetime">
-                <span class="date-badge"><i data-lucide="calendar"></i> 02 Nov 2026</span>
-                <span class="time-badge"><i data-lucide="clock"></i> 07:00 PM</span>
-              </div>
+            <div class="event-card-inner-overlay overlay-left">
+              <h3 class="event-custom-title title-reception">Reception</h3>
+              <p class="event-custom-date date-reception">22-10-26</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Haldi Card (Parchment on Right) -->
+        <div class="event-card-item" id="event-card-3">
+          <div class="event-banner-wrap">
+            <img 
+              src="assets/banner-haldi.png" 
+              alt="Haldi" 
+              class="event-banner-artwork" 
+            />
+            <div class="event-card-inner-overlay overlay-right">
+              <h3 class="event-custom-title title-haldi">Haldi</h3>
+              <p class="event-custom-date date-haldi">22-10-26</p>
             </div>
           </div>
         </div>

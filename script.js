@@ -2,12 +2,12 @@
  * ============================================================================
  * KRISHNA WEDDING TEMPLATE - JAVASCRIPT ENGINE
  * Mobile-First Interactive Suite:
- * - Continuous Falling Flower Petals Canvas
+ * - Continuous Falling Flower Petals Canvas (Petals only, no hearts)
  * - Text Blur Entrance Scroll Animations
  * - Scratch Card Live Countdown Engine
- * - GSAP ScrollTrigger Event Cards Stacking Deck (like Hanisha template)
- * - Photo Gallery Infinite Swift Carousel
- * - Smart Responsive RSVP System (Auto-hide guests on decline)
+ * - Simple Big Images Horizontal Photo Gallery (Arrows & Swipe)
+ * - GSAP ScrollTrigger Event Cards Stacking Deck (like Hanisha wedding cards)
+ * - Responsive RSVP System (Auto-hide guests on decline)
  * - Confetti & Social Sharing
  * ============================================================================
  */
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.lucide.createIcons();
   }
 
-  // 1. Continuous Falling Flower Petals Canvas Overlay
+  // 1. Continuous Falling Flower Petals Canvas (Flowers/Petals only)
   initFallingPetals();
 
   // 2. Text Blur Entrance Animations
@@ -30,10 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. Live Wedding Countdown Timer
   initWeddingCountdown();
 
-  // 5. GSAP ScrollTrigger Event Cards Stacking Deck
+  // 5. Simple Big Images Horizontal Photo Gallery with Arrow Navigation
+  initSimpleGalleryCarousel();
+
+  // 6. GSAP ScrollTrigger Event Cards Stacking Deck
   initEventCardsScrollTrigger();
 
-  // 6. Responsive RSVP System with Attendance Toggle
+  // 7. Responsive RSVP System with Attendance Toggle
   initRsvpAttendanceToggle();
   initRsvpExpander();
   checkExistingRsvp();
@@ -41,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* ==========================================================================
    1. CONTINUOUS FALLING FLOWER PETALS CANVAS ANIMATION
-   Marigold & soft rose petals gently floating down from the top
+   Natural marigold, saffron, and rose petals (Strictly NO hearts)
    ========================================================================== */
 function initFallingPetals() {
   const canvas = document.getElementById('flower-petals-canvas');
@@ -57,16 +60,16 @@ function initFallingPetals() {
     height = canvas.height = window.innerHeight;
   });
 
-  // Mobile optimization: fewer particles for 60fps smoothness
   const isMobile = window.innerWidth < 600;
   const PETAL_COUNT = isMobile ? 18 : 28;
 
+  // Realistic Indian Wedding Petal Colors: Marigold, Turmeric, Deep Saffron, Soft Rose, Jasmine
   const petalColors = [
-    { r: 245, g: 176, b: 65, a: 0.8 },  // Warm golden marigold
-    { r: 235, g: 120, b: 40, a: 0.75 }, // Deep festive saffron
-    { r: 250, g: 200, b: 90, a: 0.85 }, // Bright turmeric gold
-    { r: 244, g: 143, b: 177, a: 0.75 }, // Soft blush rose
-    { r: 255, g: 250, b: 240, a: 0.85 }  // Sacred jasmine cream
+    { r: 245, g: 176, b: 65, a: 0.85 },  // Auspicious Marigold Gold
+    { r: 235, g: 120, b: 35, a: 0.8 },   // Deep Saffron Orange
+    { r: 250, g: 200, b: 85, a: 0.85 },  // Bright Turmeric Yellow
+    { r: 244, g: 143, b: 177, a: 0.75 }, // Soft Blush Rose
+    { r: 255, g: 252, b: 242, a: 0.9 }   // Sacred Jasmine Cream
   ];
 
   const petals = [];
@@ -75,30 +78,52 @@ function initFallingPetals() {
   }
 
   function createPetal(initial = false) {
+    const isRose = Math.random() > 0.5;
     return {
       x: Math.random() * width,
       y: initial ? Math.random() * height : -20 - Math.random() * 40,
       size: Math.random() * 7 + 7,
       speedY: Math.random() * 1.3 + 0.9,
-      speedX: (Math.random() - 0.5) * 0.8,
+      speedX: (Math.random() - 0.5) * 0.7,
       swaySpeed: Math.random() * 0.025 + 0.015,
       swayOffset: Math.random() * Math.PI * 2,
       rotation: Math.random() * 360,
-      rotationSpeed: (Math.random() - 0.5) * 1.6,
+      rotationSpeed: (Math.random() - 0.5) * 1.5,
+      isRose: isRose,
       color: petalColors[Math.floor(Math.random() * petalColors.length)]
     };
   }
 
-  function drawPetal(p) {
+  // Draw natural teardrop/oval flower petal path (No heart shapes)
+  function drawFlowerPetal(p) {
     ctx.save();
     ctx.translate(p.x, p.y);
     ctx.rotate((p.rotation * Math.PI) / 180);
     ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.bezierCurveTo(p.size * 0.8, -p.size * 0.7, p.size * 1.1, p.size * 0.4, 0, p.size * 1.4);
-    ctx.bezierCurveTo(-p.size * 1.1, p.size * 0.4, -p.size * 0.8, -p.size * 0.7, 0, 0);
+
+    if (p.isRose) {
+      // Delicate curved rose petal
+      ctx.moveTo(0, -p.size * 0.9);
+      ctx.bezierCurveTo(p.size * 0.9, -p.size * 0.9, p.size * 1.0, p.size * 0.5, 0, p.size * 1.1);
+      ctx.bezierCurveTo(-p.size * 1.0, p.size * 0.5, -p.size * 0.9, -p.size * 0.9, 0, -p.size * 0.9);
+    } else {
+      // Marigold teardrop petal with natural curve
+      ctx.moveTo(0, 0);
+      ctx.bezierCurveTo(p.size * 0.75, -p.size * 0.8, p.size * 1.1, p.size * 0.4, 0, p.size * 1.4);
+      ctx.bezierCurveTo(-p.size * 1.1, p.size * 0.4, -p.size * 0.75, -p.size * 0.8, 0, 0);
+    }
+
     ctx.fillStyle = `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, ${p.color.a})`;
     ctx.fill();
+
+    // Subtle central petal vein for realism
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, p.size * 0.8);
+    ctx.strokeStyle = `rgba(${Math.max(0, p.color.r - 30)}, ${Math.max(0, p.color.g - 30)}, ${Math.max(0, p.color.b - 30)}, 0.25)`;
+    ctx.lineWidth = 0.8;
+    ctx.stroke();
+
     ctx.restore();
   }
 
@@ -109,17 +134,17 @@ function initFallingPetals() {
       const p = petals[i];
       p.y += p.speedY;
       p.swayOffset += p.swaySpeed;
-      p.x += Math.sin(p.swayOffset) * 1.2 + p.speedX;
+      p.x += Math.sin(p.swayOffset) * 1.1 + p.speedX;
       p.rotation += p.rotationSpeed;
 
-      // Wrap around or respawn from the top
+      // Respawn at top when drifting off-screen
       if (p.y > height + 25) {
         petals[i] = createPetal(false);
       }
       if (p.x < -25) p.x = width + 10;
       if (p.x > width + 25) p.x = -10;
 
-      drawPetal(p);
+      drawFlowerPetal(p);
     }
 
     requestAnimationFrame(render);
@@ -170,7 +195,6 @@ function initScrollAnimations() {
    3. LIVE WEDDING COUNTDOWN TIMER (01 NOVEMBER 2026)
    ========================================================================== */
 function initWeddingCountdown() {
-  // Target: November 1, 2026 at 09:30 AM IST
   const targetDate = new Date('2026-11-01T09:30:00+05:30').getTime();
 
   const elDays = document.getElementById('cd-days');
@@ -233,7 +257,6 @@ function initScratchCard() {
     totalPixels = rect.width * rect.height;
     scratchedPixels = 0;
 
-    // Draw Royal Krishna Blue Foil Layer with Gold Micro-Specks
     const w = rect.width;
     const h = rect.height;
 
@@ -255,13 +278,11 @@ function initScratchCard() {
       ctx.fill();
     }
 
-    // Elegant inner border on foil
     ctx.strokeStyle = 'rgba(212, 175, 55, 0.6)';
     ctx.lineWidth = 1.5;
     ctx.strokeRect(10, 10, w - 20, h - 20);
   }
 
-  // Wait a tick for boundingClientRect
   setTimeout(setupCanvas, 100);
   window.addEventListener('resize', () => {
     if (!scratched) setupCanvas();
@@ -309,7 +330,6 @@ function initScratchCard() {
     fireConfetti();
   }
 
-  // Pointer & Touch Events
   canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
   canvas.addEventListener('mousemove', scratch);
   window.addEventListener('mouseup', () => { isDrawing = false; });
@@ -335,7 +355,82 @@ function initScratchCard() {
 }
 
 /* ==========================================================================
-   5. GSAP SCROLLTRIGGER EVENT CARDS STACKING DECK
+   5. SIMPLE BIG IMAGES HORIZONTAL PHOTO GALLERY (ARROWS & SWIPE)
+   No automatic fast spinning; user controlled with arrow clicks and swipe
+   ========================================================================== */
+function initSimpleGalleryCarousel() {
+  const slidesContainer = document.getElementById('gallerySlides');
+  const prevBtn = document.getElementById('galleryPrev');
+  const nextBtn = document.getElementById('galleryNext');
+  const dotsContainer = document.getElementById('galleryDots');
+  if (!slidesContainer) return;
+
+  const slides = Array.from(slidesContainer.querySelectorAll('.big-slide-item'));
+  if (!slides.length) return;
+
+  let currentIndex = 0;
+
+  // Render clickable dots
+  if (dotsContainer) {
+    dotsContainer.innerHTML = '';
+    slides.forEach((_, idx) => {
+      const dot = document.createElement('button');
+      dot.className = `carousel-dot ${idx === 0 ? 'active' : ''}`;
+      dot.setAttribute('aria-label', `Go to photo ${idx + 1}`);
+      dot.addEventListener('click', () => goToSlide(idx));
+      dotsContainer.appendChild(dot);
+    });
+  }
+
+  function updateSlides() {
+    slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+    slides.forEach((slide, idx) => {
+      slide.classList.toggle('active', idx === currentIndex);
+    });
+    if (dotsContainer) {
+      const dots = dotsContainer.querySelectorAll('.carousel-dot');
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle('active', idx === currentIndex);
+      });
+    }
+  }
+
+  function goToSlide(index) {
+    currentIndex = (index + slides.length) % slides.length;
+    updateSlides();
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+  }
+
+  // Mobile Touch Swipe Navigation
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  slidesContainer.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  slidesContainer.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        goToSlide(currentIndex + 1); // Swiped Left -> Show Next
+      } else {
+        goToSlide(currentIndex - 1); // Swiped Right -> Show Previous
+      }
+    }
+  }, { passive: true });
+}
+
+/* ==========================================================================
+   6. GSAP SCROLLTRIGGER EVENT CARDS STACKING DECK
    Matching the Hanisha template scroll deck feel
    ========================================================================== */
 function initEventCardsScrollTrigger() {
@@ -345,19 +440,19 @@ function initEventCardsScrollTrigger() {
   gsap.registerPlugin(ScrollTrigger);
 
   const cards = Array.from(document.querySelectorAll('.event-card-item'));
-  if (!cards.length) return;
+  if (cards.length < 2) return;
 
   cards.forEach((card, idx) => {
     const nextCard = cards[idx + 1];
     if (nextCard) {
       gsap.to(card, {
         scale: 0.93,
-        opacity: 0.7,
+        opacity: 0.65,
         ease: 'none',
         scrollTrigger: {
           trigger: nextCard,
           start: 'top 75%',
-          end: 'top 18%',
+          end: 'top 20%',
           scrub: true,
         }
       });
@@ -366,7 +461,7 @@ function initEventCardsScrollTrigger() {
 }
 
 /* ==========================================================================
-   6. RESPONSIVE RSVP SYSTEM WITH CONDITIONAL ATTENDANCE
+   7. RESPONSIVE RSVP SYSTEM WITH CONDITIONAL ATTENDANCE
    When 'Regretfully Decline' is selected: hides number of guests & events
    ========================================================================== */
 function initRsvpAttendanceToggle() {
@@ -375,7 +470,6 @@ function initRsvpAttendanceToggle() {
 
   attendingRadios.forEach(radio => {
     radio.addEventListener('change', (e) => {
-      // Toggle active border styling on radio-card containers
       document.querySelectorAll('.attendance-radios .radio-card').forEach(c => c.classList.remove('active'));
       e.target.closest('.radio-card').classList.add('active');
 
@@ -475,7 +569,8 @@ function checkExistingRsvp() {
 }
 
 /* ==========================================================================
-   7. SOCIAL SHARING & UTILITIES
+   8. SOCIAL SHARING & UTILITIES
+   Flower petals and gold confetti only (No hearts)
    ========================================================================== */
 function shareOnWhatsApp() {
   const groom = 'Hemanth';
@@ -513,11 +608,25 @@ function showToast(message) {
 
 function fireConfetti() {
   if (typeof confetti === 'function') {
-    confetti({
-      particleCount: 70,
-      spread: 60,
-      origin: { y: 0.65 },
-      colors: ['#d4af37', '#133979', '#e84393', '#10b981', '#ffffff']
-    });
+    // Custom flower petal shape (Strictly floral, no hearts)
+    try {
+      const petalPath = confetti.shapeFromPath({
+        path: 'M12 2 C8 2 4 6 4 12 C4 18 8 22 12 22 C16 22 20 18 20 12 C20 6 16 2 12 2 Z'
+      });
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.65 },
+        shapes: [petalPath],
+        colors: ['#f5b041', '#e67e22', '#d4af37', '#f48fb1', '#fff9c4']
+      });
+    } catch (e) {
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.65 },
+        colors: ['#f5b041', '#e67e22', '#d4af37', '#f48fb1', '#fff9c4']
+      });
+    }
   }
 }
