@@ -431,7 +431,7 @@ function initSimpleGalleryCarousel() {
 
 /* ==========================================================================
    6. GSAP SCROLLTRIGGER EVENT CARDS STACKING DECK
-   Matching the Hanisha template scroll deck feel
+   Matching the Hanisha template scroll deck feel - 100% Solid & Opaque
    ========================================================================== */
 function initEventCardsScrollTrigger() {
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
@@ -446,13 +446,12 @@ function initEventCardsScrollTrigger() {
     const nextCard = cards[idx + 1];
     if (nextCard) {
       gsap.to(card, {
-        scale: 0.93,
-        opacity: 0.65,
+        scale: 0.94,
         ease: 'none',
         scrollTrigger: {
           trigger: nextCard,
           start: 'top 75%',
-          end: 'top 20%',
+          end: 'top 18%',
           scrub: true,
         }
       });

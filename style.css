@@ -914,7 +914,7 @@ button {
 
 /* --------------------------------------------------------------------------
    7. ORDER OF EVENTS SECTION (SCROLL TRIGGER STACKING)
-   Clean, elegant cards matching Attachment 1, with physical deck stacking!
+   Solid opaque cards with crisp, consistent physical deck stacking
    -------------------------------------------------------------------------- */
 .section-events {
   margin-bottom: 50px;
@@ -930,31 +930,32 @@ button {
   overflow: visible;
 }
 
-/* Stacking sticky cards like Hanisha cards */
+/* Stacking sticky cards like Hanisha cards - 100% Solid & Opaque (No Transparency) */
 .event-card-item {
   position: sticky;
-  margin-bottom: 35px;
+  margin-bottom: 40px;
   transform-origin: top center;
-  will-change: transform, opacity;
-  background: transparent;
-  border-radius: var(--radius-md);
-  box-shadow: 0 12px 30px rgba(19, 57, 121, 0.16);
-  transition: box-shadow 0.3s ease;
+  will-change: transform;
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  box-shadow: 0 16px 36px rgba(19, 57, 121, 0.18), 0 2px 6px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
 }
 
-/* Staggered sticky tops so each card stays visible and stacks physically */
+/* Consistent staggered sticky tops for physical card deck stacking */
 .event-card-item:nth-child(1) {
-  top: 13vh;
+  top: 12vh;
   z-index: 1;
 }
 
 .event-card-item:nth-child(2) {
-  top: 17vh;
+  top: 16vh;
   z-index: 2;
 }
 
 .event-card-item:nth-child(3) {
-  top: 21vh;
+  top: 20vh;
   z-index: 3;
   margin-bottom: 0;
 }
@@ -962,15 +963,16 @@ button {
 .event-banner-wrap {
   position: relative;
   width: 100%;
-  border-radius: var(--radius-md);
+  aspect-ratio: 16 / 9;
+  border-radius: 18px;
   overflow: hidden;
-  border: 1px solid rgba(212, 175, 55, 0.45);
-  background: #fbf8f2;
+  background: #ffffff;
 }
 
 .event-banner-artwork {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
 
