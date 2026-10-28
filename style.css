@@ -50,12 +50,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
-  background-color: #f4ede1;
-  background-image: 
-    radial-gradient(circle at 10% 15%, rgba(212, 175, 55, 0.06) 0%, transparent 40%),
-    radial-gradient(circle at 90% 85%, rgba(19, 57, 121, 0.05) 0%, transparent 45%),
-    linear-gradient(to bottom, #f7f1e6, #eee4d2);
-  background-attachment: fixed;
+  background-color: #fcf4de;
   color: var(--color-text-main);
   -webkit-text-size-adjust: 100%;
 }
@@ -64,6 +59,7 @@ body {
   font-family: var(--font-sans);
   line-height: 1.5;
   min-height: 100vh;
+  background-color: #fcf4de;
   overflow-x: clip;
   display: flex;
   justify-content: center;
@@ -110,7 +106,7 @@ button {
 .invite-container {
   width: 100%;
   max-width: 480px;
-  background: #ffffff;
+  background-color: #fcf4de;
   min-height: 100vh;
   box-shadow: 0 15px 50px rgba(19, 57, 121, 0.12), 0 0 0 1px rgba(212, 175, 55, 0.3);
   padding: 0 var(--container-pad) 40px;
@@ -157,33 +153,37 @@ button {
    Takes full-height on mobile so it feels like a grand opening screen!
    -------------------------------------------------------------------------- */
 .section-hero {
-  min-height: 92vh;
+  min-height: 100vh;
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
-  padding: 44px 10px 48px;
-  position: relative;
-  margin-bottom: 20px;
+  padding: 48px 0 0;
+  margin-bottom: 24px;
+  background: url('assets/hero-bg.png') no-repeat center top / cover;
+  overflow: hidden;
 }
 
 .hero-inner-content {
   width: 100%;
+  padding: 0 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 2;
 }
 
 .couple-names-wrap {
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .person-name {
-  font-family: var(--font-heading);
-  font-size: 3.1rem;
+  font-family: var(--font-heading) !important;
+  font-size: 3rem;
   font-weight: 500;
-  color: var(--color-royal-blue);
+  color: var(--color-royal-blue) !important;
   line-height: 1.15;
   letter-spacing: 0.5px;
 }
@@ -237,65 +237,58 @@ button {
   justify-content: center;
   gap: 12px;
   max-width: 240px;
-  margin: 16px auto 18px;
+  margin: 14px auto 16px;
 }
 
 .hero-divider .div-line {
   flex: 1;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(30, 30, 36, 0.4), transparent);
+  background: linear-gradient(to right, transparent, rgba(19, 57, 121, 0.4), transparent);
 }
 
 .hero-divider .div-symbol {
   font-size: 0.85rem;
-  color: rgba(30, 30, 36, 0.7);
+  color: var(--color-gold-dark);
 }
 
 /* Hero Date */
 .hero-date {
   font-family: var(--font-serif);
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   color: var(--color-royal-blue);
-  margin-bottom: 28px;
+  margin-bottom: 16px;
   white-space: nowrap;
 }
 
-/* Radha Krishna Hero Artwork */
+/* Radha Krishna Hero Artwork - Brought down and expanded horizontally */
 .hero-illustration-wrap {
   position: relative;
   width: 100%;
-  max-width: 370px;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 16px 0 0;
+  padding: 0;
   display: flex;
   justify-content: center;
-}
-
-.divine-halo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(255, 235, 160, 0.55) 0%, rgba(212, 175, 55, 0.15) 55%, transparent 75%);
-  border-radius: 50%;
-  filter: blur(20px);
-  pointer-events: none;
+  align-items: flex-end;
+  line-height: 0;
+  z-index: 2;
 }
 
 .hero-radha-krishna-img {
   position: relative;
-  z-index: 2;
-  width: 95%;
+  width: 100%;
+  max-width: 100%;
   height: auto;
-  filter: drop-shadow(0 14px 28px rgba(19, 57, 121, 0.16));
+  display: block;
+  margin-bottom: -3px;
+  filter: drop-shadow(0 10px 24px rgba(19, 57, 121, 0.16));
   transition: transform var(--transition-smooth);
 }
 
 .hero-radha-krishna-img:hover {
-  transform: translateY(-4px) scale(1.02);
+  transform: scale(1.015);
 }
 
 /* Hero Scroll Prompt */
@@ -482,13 +475,11 @@ button {
 .member-photo-card {
   position: relative;
   z-index: 5;
-  width: 70%;
-  max-width: 255px;
-  aspect-ratio: 3 / 4;
-  background: #f0ebe1;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  box-shadow: 0 12px 30px rgba(19, 57, 121, 0.15), 0 0 0 1px rgba(212, 175, 55, 0.3);
+  width: 68%;
+  max-width: 245px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   transition: all var(--transition-smooth);
 }
 
@@ -503,28 +494,55 @@ button {
 }
 
 .hover-lift:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 36px rgba(19, 57, 121, 0.22);
+  transform: translateY(-4px);
 }
 
 .card-inner-photo {
   position: relative;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 3 / 4;
+  background: #f0ebe1;
+  border-radius: var(--radius-sm);
   overflow: hidden;
+  box-shadow: 0 10px 26px rgba(19, 57, 121, 0.14), 0 0 0 1px rgba(212, 175, 55, 0.35);
 }
 
 .actual-portrait-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 15%;
+  object-position: center top;
   display: block;
   transition: transform var(--transition-smooth);
 }
 
 .member-photo-card:hover .actual-portrait-img {
-  transform: scale(1.04);
+  transform: scale(1.03);
+}
+
+/* Names and Parents below photos (matching Attachment 3) */
+.member-name-block {
+  text-align: center;
+  margin-top: 10px;
+  width: 100%;
+  padding: 0 4px;
+}
+
+.member-name {
+  font-family: var(--font-heading) !important;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--color-royal-blue) !important;
+  line-height: 1.25;
+  margin-bottom: 3px;
+}
+
+.member-parents {
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  color: var(--color-text-muted);
+  line-height: 1.35;
+  font-weight: 500;
 }
 
 /* Script Overlay Text ("Groom pic" & "Bride Pic") */
@@ -1628,4 +1646,106 @@ button {
 @keyframes toastUp {
   0% { transform: translateY(15px); opacity: 0; }
   100% { transform: translateY(0); opacity: 1; }
+}
+
+/* ==========================================================================
+   UNIFIED HEADINGS (Identical Font Family and Color Across the Entire Site)
+   ========================================================================== */
+h1, h2, h3, h4,
+.person-name,
+.intro-title,
+.section-title,
+.events-main-title,
+.member-name,
+.venue-name,
+.venue-title,
+.rsvp-title,
+.modal-title,
+.kindly-title,
+.event-custom-title {
+  font-family: var(--font-heading) !important;
+  color: var(--color-royal-blue) !important;
+}
+
+/* ==========================================================================
+   FLOATING WEDDING MUSIC CONTROLLER
+   ========================================================================== */
+.floating-music-btn {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 8px 10px;
+  background: rgba(253, 244, 222, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(212, 175, 55, 0.65);
+  border-radius: var(--radius-full);
+  box-shadow: 0 6px 20px rgba(19, 57, 121, 0.18);
+  cursor: pointer;
+  color: var(--color-royal-blue);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.floating-music-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 8px 24px rgba(19, 57, 121, 0.25);
+  border-color: var(--color-gold);
+}
+
+.music-disc-wrap {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-royal-blue);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.4s ease;
+}
+
+.floating-music-btn.playing .music-disc-wrap {
+  animation: spinSlow 4s linear infinite;
+}
+
+.floating-music-btn .icon-playing {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
+.floating-music-btn .icon-muted {
+  display: none;
+  width: 14px;
+  height: 14px;
+}
+
+.floating-music-btn.muted .music-disc-wrap {
+  background: #718096;
+}
+
+.floating-music-btn.muted .icon-playing {
+  display: none;
+}
+
+.floating-music-btn.muted .icon-muted {
+  display: block;
+}
+
+.music-label {
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }

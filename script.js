@@ -40,6 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initRsvpAttendanceToggle();
   initRsvpExpander();
   checkExistingRsvp();
+
+  // 8. Background Wedding Music & Floating Mute Button
+  initBackgroundMusic();
 });
 
 /* ==========================================================================
@@ -195,7 +198,7 @@ function initScrollAnimations() {
    3. LIVE WEDDING COUNTDOWN TIMER (01 NOVEMBER 2026)
    ========================================================================== */
 function initWeddingCountdown() {
-  const targetDate = new Date('2026-11-01T09:30:00+05:30').getTime();
+  const targetDate = new Date('2027-03-06T09:30:00+05:30').getTime();
 
   const elDays = document.getElementById('cd-days');
   const elHours = document.getElementById('cd-hours');
@@ -572,9 +575,9 @@ function checkExistingRsvp() {
    Flower petals and gold confetti only (No hearts)
    ========================================================================== */
 function shareOnWhatsApp() {
-  const groom = 'Hemanth';
-  const bride = 'Yashaswini';
-  const date = '01 November 2026';
+  const groom = 'Allu Arjun';
+  const bride = 'Sneha Reddy';
+  const date = '6 March 2011 · Hyderabad';
   
   const msg = `🌸 *Wedding Invitation* 🌸\n\nWith the divine blessings of Radha Krishna, we joyfully invite you to the wedding celebrations of:\n\n*${groom} weds ${bride}*\n📅 Date: ${date}\n\nKindly view our digital wedding invite and RSVP here:\n${window.location.href}\n\nWe look forward to celebrating together! ✨`;
 
@@ -628,4 +631,70 @@ function fireConfetti() {
       });
     }
   }
+}
+
+/* ==========================================================================
+   8. BACKGROUND WEDDING MUSIC & FLOATING MUTE BUTTON
+   Plays custom audio and supports seamless mute/unmute toggle
+   ========================================================================== */
+function initBackgroundMusic() {
+  const audio = document.getElementById('weddingBgm');
+  const btn = document.getElementById('musicToggleBtn');
+  if (!audio || !btn) return;
+
+  let isPlaying = false;
+
+  function updateBtn() {
+    if (isPlaying) {
+      btn.classList.add('playing');
+      btn.classList.remove('muted');
+    } else {
+      btn.classList.remove('playing');
+      btn.classList.add('muted');
+    }
+    if (window.lucide) window.lucide.createIcons();
+  }
+
+  function playAudio() {
+    audio.play().then(() => {
+      isPlaying = true;
+      updateBtn();
+    }).catch(err => {
+      // Browser autoplay policy requires user interaction first
+      isPlaying = false;
+      updateBtn();
+    });
+  }
+
+  function pauseAudio() {
+    audio.pause();
+    isPlaying = false;
+    updateBtn();
+  }
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (isPlaying) {
+      pauseAudio();
+    } else {
+      playAudio();
+    }
+  });
+
+  // Start music automatically on user's first touch/click/scroll
+  const tryStartMusic = () => {
+    if (!isPlaying) {
+      playAudio();
+    }
+    document.removeEventListener('click', tryStartMusic);
+    document.removeEventListener('touchstart', tryStartMusic);
+    document.removeEventListener('scroll', tryStartMusic);
+  };
+
+  document.addEventListener('click', tryStartMusic, { once: true });
+  document.addEventListener('touchstart', tryStartMusic, { once: true });
+  document.addEventListener('scroll', tryStartMusic, { once: true });
+
+  // Initial attempt
+  playAudio();
 }

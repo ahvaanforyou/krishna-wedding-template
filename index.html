@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Hemanth & Yashaswini | Wedding Invitation</title>
-  <meta name="description" content="Wedding celebration invitation of Hemanth and Yashaswini with the divine blessings of Radha Krishna.">
+  <title>Allu Arjun & Sneha Reddy | Wedding Celebration</title>
+  <meta name="description" content="Wedding celebration invitation of Allu Arjun and Sneha Reddy with the divine blessings of Radha Krishna.">
 
   <!-- Google Fonts: Luxury Serif, Romantic Script & Classic Lettering -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,6 +26,16 @@
   <!-- Continuous Falling Flower Petals Canvas Overlay (Flowers & Petals Only, No Hearts) -->
   <canvas id="flower-petals-canvas" aria-hidden="true"></canvas>
 
+  <!-- Floating Wedding Background Music Controller -->
+  <audio id="weddingBgm" loop preload="auto" src="assets/wedding-music.mp3"></audio>
+  <button id="musicToggleBtn" class="floating-music-btn" aria-label="Toggle Wedding Music">
+    <div class="music-disc-wrap">
+      <i data-lucide="music" class="music-icon icon-playing"></i>
+      <i data-lucide="volume-x" class="music-icon icon-muted"></i>
+    </div>
+    <span class="music-label">Music</span>
+  </button>
+
   <!-- Main Container -->
   <main class="invite-container">
 
@@ -38,13 +48,13 @@
         
         <!-- Couple Names -->
         <div class="couple-names-wrap">
-          <h1 class="person-name groom-name">Hemanth</h1>
+          <h1 class="person-name groom-name">Allu Arjun</h1>
           <div class="weds-flourish">
             <span class="flourish-curve left"></span>
             <span class="weds-text">weds</span>
             <span class="flourish-curve right"></span>
           </div>
-          <h1 class="person-name bride-name">Yashaswini</h1>
+          <h1 class="person-name bride-name">Sneha Reddy</h1>
         </div>
 
         <!-- Ornamental Divider -->
@@ -56,50 +66,38 @@
 
         <!-- Single Line Wedding Date -->
         <div class="hero-date">
-          <span>01 NOVEMBER 2026</span>
+          <span>6 MARCH 2011 · HYDERABAD</span>
         </div>
 
-        <!-- Radha Krishna Sitting on Floral Bench Artwork -->
-        <div class="hero-illustration-wrap">
-          <div class="divine-halo"></div>
-          <img 
-            src="assets/hero-radha-krishna.png" 
-            alt="Radha Krishna Divine Blessings" 
-            class="hero-radha-krishna-img" 
-          />
-        </div>
+      </div>
 
-        <!-- Gentle Scroll Down Indicator -->
-        <div class="hero-scroll-prompt">
-          <span class="prompt-text">Scroll to Celebrate</span>
-          <i data-lucide="chevron-down" class="prompt-chevron"></i>
-        </div>
-
+      <!-- Radha Krishna Sitting on Floral Bench Artwork -->
+      <div class="hero-illustration-wrap">
+        <img 
+          src="assets/hero-radha-krishna.png" 
+          alt="Radha Krishna Divine Blessings" 
+          class="hero-radha-krishna-img" 
+        />
       </div>
     </header>
 
     <!-- ============================================== -->
-    <!-- 2. INTRODUCING THE COUPLE SECTION HEADING -->
+    <!-- 2. BRIDE & GROOM SECTION HEADING -->
     <!-- ============================================== -->
     <div class="couple-intro-header anim-blur">
       <div class="intro-lotus-ornament">
         <img src="assets/lotus-gold.png" alt="Sacred Lotus" class="decor-lotus-img" />
       </div>
       <div class="intro-badge">✦ THE SACRED UNION ✦</div>
-      <h2 class="intro-title">Introducing The Couple</h2>
+      <h2 class="intro-title">Bride & Groom</h2>
       <p class="intro-subtitle">Two souls bound together by divine love and timeless blessings</p>
-      <div class="intro-flourish-divider">
-        <span class="flourish-bar"></span>
-        <span class="flourish-icon">❦</span>
-        <span class="flourish-bar"></span>
-      </div>
     </div>
 
     <!-- ============================================== -->
-    <!-- 3. BRIDE PIC SECTION (Top) -->
+    <!-- 3. GROOM PIC SECTION (Top - Krishna on Left) -->
     <!-- Baby Krishna on Left, sticking directly to the page border -->
     <!-- ============================================== -->
-    <section class="section-couple-member section-couple-top anim-blur">
+    <section class="section-couple-member section-couple-groom anim-blur">
       <div class="couple-member-row top-member-layout">
         
         <!-- Baby Krishna touching the absolute left border of the phone screen (Zero gap) -->
@@ -111,17 +109,18 @@
           />
         </div>
 
-        <!-- Bride Photo Card -->
-        <div class="member-photo-card bride-card hover-lift">
+        <!-- Groom Photo Card -->
+        <div class="member-photo-card groom-card hover-lift">
           <div class="card-inner-photo">
             <img 
-              src="assets/ai-bride.jpg" 
-              alt="Bride Portrait" 
+              src="assets/groom-portrait.jpg" 
+              alt="Allu Arjun" 
               class="actual-portrait-img" 
             />
-            <div class="photo-script-overlay">
-              <span class="photo-script-title">Bride Pic</span>
-            </div>
+          </div>
+          <div class="member-name-block">
+            <h3 class="member-name">Allu Arjun</h3>
+            <p class="member-parents">Son of Allu Aravind & Nirmala Allu</p>
           </div>
         </div>
 
@@ -129,23 +128,24 @@
     </section>
 
     <!-- ============================================== -->
-    <!-- 4. GROOM PIC SECTION (Bottom) -->
-    <!-- Groom Pic on Left, Baby Radha on Right sticking directly to the page border -->
+    <!-- 4. BRIDE PIC SECTION (Bottom - Radha on Right) -->
+    <!-- Bride Pic, Baby Radha on Right sticking directly to the page border -->
     <!-- ============================================== -->
-    <section class="section-couple-member section-couple-bottom anim-blur">
+    <section class="section-couple-member section-couple-bride anim-blur">
       <div class="couple-member-row bottom-member-layout">
         
-        <!-- Groom Photo Card -->
-        <div class="member-photo-card groom-card hover-lift">
+        <!-- Bride Photo Card -->
+        <div class="member-photo-card bride-card hover-lift">
           <div class="card-inner-photo">
             <img 
-              src="assets/groom-portrait.jpg" 
-              alt="Groom Portrait" 
+              src="assets/bride-portrait.jpg" 
+              alt="Sneha Reddy" 
               class="actual-portrait-img" 
             />
-            <div class="photo-script-overlay">
-              <span class="photo-script-title">Groom</span>
-            </div>
+          </div>
+          <div class="member-name-block">
+            <h3 class="member-name">Sneha Reddy</h3>
+            <p class="member-parents">Daughter of Kancharla Chandra Sekhar Reddy & Kavita Reddy</p>
           </div>
         </div>
 
@@ -177,7 +177,7 @@
         <div class="scratch-under-content">
           <div class="scratch-inner-border">
             <div class="scratch-pill-tag">✦ AUSPICIOUS MUHURTHAM COUNTDOWN ✦</div>
-            <div class="scratch-wedding-date">01 NOVEMBER 2026 • 10:24 AM</div>
+            <div class="scratch-wedding-date">6 MARCH 2011 • HYDERABAD</div>
             
             <!-- Live Ticking Countdown Units -->
             <div class="countdown-units-row" id="wedding-countdown">
@@ -270,7 +270,7 @@
             </div>
             <div class="big-slide-item">
               <div class="big-photo-frame">
-                <img src="assets/gallery-couple-5.jpg" alt="The Joyful Groom" />
+                <img src="assets/gallery-couple-5.jpg" alt="Cherished Moments with Family" />
               </div>
             </div>
           </div>
@@ -294,11 +294,6 @@
       <div class="section-title-wrap">
         <span class="section-badge">✦ CELEBRATIONS ✦</span>
         <h2 class="events-main-title">Order of Events</h2>
-        <div class="section-divider-flourish">
-          <span class="div-line"></span>
-          <span class="div-symbol">❦</span>
-          <span class="div-line"></span>
-        </div>
         <p class="section-subtitle">We cordially invite you to be part of every auspicious ceremony</p>
       </div>
 
@@ -561,7 +556,7 @@
 
       <!-- Bottom Hashtag -->
       <footer class="invite-footer">
-        <span class="wedding-tag">#HemanthWedsYashaswini</span>
+        <span class="wedding-tag">#AlluArjunWedsSnehaReddy</span>
       </footer>
     </section>
 
