@@ -24,50 +24,77 @@
   <main class="invite-container">
 
     <!-- ============================================== -->
-    <!-- 1. HERO SECTION -->
+    <!-- 1. EXPANDED GRAND HERO SECTION -->
+    <!-- Full-height opening screen with royal breathing room -->
     <!-- ============================================== -->
     <header class="section-hero anim-blur">
-      <div class="couple-names-wrap">
-        <h1 class="person-name groom-name">Hemanth</h1>
-        <div class="weds-flourish">
-          <span class="flourish-curve left"></span>
-          <span class="weds-text">weds</span>
-          <span class="flourish-curve right"></span>
+      <div class="hero-inner-content">
+        
+        <!-- Couple Names -->
+        <div class="couple-names-wrap">
+          <h1 class="person-name groom-name">Hemanth</h1>
+          <div class="weds-flourish">
+            <span class="flourish-curve left"></span>
+            <span class="weds-text">weds</span>
+            <span class="flourish-curve right"></span>
+          </div>
+          <h1 class="person-name bride-name">Yashaswini</h1>
         </div>
-        <h1 class="person-name bride-name">Yashaswini</h1>
-      </div>
 
-      <!-- Ornamental Divider -->
-      <div class="hero-divider">
-        <span class="div-line"></span>
-        <span class="div-symbol">✦</span>
-        <span class="div-line"></span>
-      </div>
+        <!-- Ornamental Divider -->
+        <div class="hero-divider">
+          <span class="div-line"></span>
+          <span class="div-symbol">✦</span>
+          <span class="div-line"></span>
+        </div>
 
-      <!-- Date Line -->
-      <div class="hero-date">
-        <span>0 1 &nbsp; N O V E M B E R &nbsp; 2 0 2 6</span>
-      </div>
+        <!-- Wedding Date Line -->
+        <div class="hero-date">
+          <span>0 1 &nbsp; N O V E M B E R &nbsp; 2 0 2 6</span>
+        </div>
 
-      <!-- Hero Radha Krishna Sitting on Floral Bench -->
-      <div class="hero-illustration-wrap">
-        <div class="divine-halo"></div>
-        <img 
-          src="assets/hero-radha-krishna.png" 
-          alt="Radha Krishna Divine Blessings" 
-          class="hero-radha-krishna-img" 
-        />
+        <!-- Radha Krishna Sitting on Floral Bench Artwork -->
+        <div class="hero-illustration-wrap">
+          <div class="divine-halo"></div>
+          <img 
+            src="assets/hero-radha-krishna.png" 
+            alt="Radha Krishna Divine Blessings" 
+            class="hero-radha-krishna-img" 
+          />
+        </div>
+
+        <!-- Gentle Scroll Down Indicator -->
+        <div class="hero-scroll-prompt">
+          <span class="prompt-text">Scroll to Celebrate</span>
+          <i data-lucide="chevron-down" class="prompt-chevron"></i>
+        </div>
+
       </div>
     </header>
 
     <!-- ============================================== -->
-    <!-- 2. GROOM PIC SECTION (Top - Baby Krishna Peeking from Left) -->
-    <!-- Interchanged: Groom is on Top -->
+    <!-- 2. INTRODUCING THE COUPLE SECTION HEADING -->
+    <!-- Clear, elegant transition between hero & couple photos -->
+    <!-- ============================================== -->
+    <div class="couple-intro-header anim-blur">
+      <div class="intro-badge">✦ THE SACRED UNION ✦</div>
+      <h2 class="intro-title">Introducing The Couple</h2>
+      <p class="intro-subtitle">Two souls bound together by divine love and timeless blessings</p>
+      <div class="intro-flourish-divider">
+        <span class="flourish-bar"></span>
+        <span class="flourish-icon">❦</span>
+        <span class="flourish-bar"></span>
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- 3. GROOM PIC SECTION (Top) -->
+    <!-- Baby Krishna flush against the left phone screen border -->
     <!-- ============================================== -->
     <section class="section-couple-member section-groom anim-blur">
       <div class="couple-member-row groom-layout">
         
-        <!-- Large Baby Krishna Peeking Touching Left Phone Screen -->
+        <!-- Large Baby Krishna Flush Against Left Phone Screen Border -->
         <div class="peeking-icon-wrap krishna-peeking-wrap">
           <img 
             src="assets/krishna-peeking.png" 
@@ -94,8 +121,8 @@
     </section>
 
     <!-- ============================================== -->
-    <!-- 3. BRIDE PIC SECTION (Bottom - Baby Radha Peeking from Right) -->
-    <!-- Interchanged: Bride is on Bottom -->
+    <!-- 4. BRIDE PIC SECTION (Bottom) -->
+    <!-- Baby Radha flush against the right phone screen border -->
     <!-- ============================================== -->
     <section class="section-couple-member section-bride anim-blur">
       <div class="couple-member-row bride-layout">
@@ -114,7 +141,7 @@
           </div>
         </div>
 
-        <!-- Large Baby Radha Peeking Touching Right Phone Screen -->
+        <!-- Large Baby Radha Flush Against Right Phone Screen Border -->
         <div class="peeking-icon-wrap radha-peeking-wrap">
           <img 
             src="assets/radha-peeking.png" 
@@ -127,53 +154,43 @@
     </section>
 
     <!-- ============================================== -->
-    <!-- 4. SCRATCH TO REVEAL SECTION & LIVE COUNTDOWN -->
-    <!-- Mobile touch-action: none & live countdown timer -->
+    <!-- 5. SCRATCH TO REVEAL THE WEDDING COUNTDOWN TIMER -->
+    <!-- Scratch card hides the live ticking countdown timer -->
     <!-- ============================================== -->
     <section class="section-scratch anim-blur">
       
-      <!-- Top Countdown Strip to the Wedding -->
-      <div class="countdown-card-strip">
-        <div class="countdown-strip-title">✦ COUNTDOWN TO THE AUSPICIOUS MOMENT ✦</div>
-        <div class="countdown-units-row" id="wedding-countdown">
-          <div class="cd-unit">
-            <span class="cd-num" id="cd-days">00</span>
-            <span class="cd-lbl">Days</span>
-          </div>
-          <span class="cd-colon">:</span>
-          <div class="cd-unit">
-            <span class="cd-num" id="cd-hours">00</span>
-            <span class="cd-lbl">Hours</span>
-          </div>
-          <span class="cd-colon">:</span>
-          <div class="cd-unit">
-            <span class="cd-num" id="cd-minutes">00</span>
-            <span class="cd-lbl">Mins</span>
-          </div>
-          <span class="cd-colon">:</span>
-          <div class="cd-unit">
-            <span class="cd-num" id="cd-seconds">00</span>
-            <span class="cd-lbl">Secs</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Interactive Scratch Box -->
       <div class="scratch-card-box" id="scratch-container">
         
-        <!-- Underneath Revealed Content -->
+        <!-- Revealed Live Countdown Underneath -->
         <div class="scratch-under-content">
           <div class="scratch-inner-border">
-            <div class="scratch-pill-tag">✦ Auspicious Muhurtham Unveiled ✦</div>
-            <div class="muhurtham-clock">10:24 AM</div>
-            <div class="muhurtham-sub">Godhuli Vela | Rohini Nakshatra | Dhanu Lagna</div>
-            <p class="scratch-msg">
-              "Your sacred blessings are our greatest treasure. Show this auspicious code at reception for a sacred Krishna Prasad box:"
-            </p>
-            <div class="pass-code-pill" onclick="copyBlessingCode()">
-              <span>#RADHE-SHYAM-2026</span>
-              <i data-lucide="copy" class="copy-icon"></i>
+            <div class="scratch-pill-tag">✦ AUSPICIOUS MUHURTHAM COUNTDOWN ✦</div>
+            <div class="scratch-wedding-date">01 NOVEMBER 2026 • 10:24 AM</div>
+            
+            <!-- Live Ticking Countdown Units -->
+            <div class="countdown-units-row" id="wedding-countdown">
+              <div class="cd-unit">
+                <span class="cd-num" id="cd-days">00</span>
+                <span class="cd-lbl">Days</span>
+              </div>
+              <span class="cd-colon">:</span>
+              <div class="cd-unit">
+                <span class="cd-num" id="cd-hours">00</span>
+                <span class="cd-lbl">Hours</span>
+              </div>
+              <span class="cd-colon">:</span>
+              <div class="cd-unit">
+                <span class="cd-num" id="cd-minutes">00</span>
+                <span class="cd-lbl">Mins</span>
+              </div>
+              <span class="cd-colon">:</span>
+              <div class="cd-unit">
+                <span class="cd-num" id="cd-seconds">00</span>
+                <span class="cd-lbl">Secs</span>
+              </div>
             </div>
+
+            <p class="scratch-timer-quote">"Counting down every sacred second until our eternal union."</p>
           </div>
         </div>
 
@@ -183,7 +200,7 @@
         <!-- Scratch Script Text Overlay -->
         <div class="scratch-label-overlay" id="scratch-hint">
           <span class="scratch-calligraphy">Scratch to Reveal</span>
-          <span class="scratch-tap-guide">✨ Rub with finger to reveal secret Muhurtham ✨</span>
+          <span class="scratch-tap-guide">✨ Rub with finger to reveal the wedding countdown ✨</span>
         </div>
       </div>
 
@@ -195,7 +212,7 @@
     </section>
 
     <!-- ============================================== -->
-    <!-- 5. ORDER OF EVENTS SECTION (WITH CONTENT ON TOP) -->
+    <!-- 6. ORDER OF EVENTS SECTION (WITH CONTENT ON TOP) -->
     <!-- ============================================== -->
     <section class="section-events anim-blur">
       <h2 class="events-main-title">Order of Events</h2>
@@ -266,22 +283,19 @@
     </section>
 
     <!-- ============================================== -->
-    <!-- 6. RSVP SECTION -->
+    <!-- 7. RSVP SECTION (DEFAULT OPEN AS REQUESTED) -->
     <!-- ============================================== -->
     <section class="section-rsvp anim-blur" id="rsvp-section">
-      <!-- Royal Blue RSVP Trigger Banner matching reference -->
+      <!-- Royal Blue RSVP Header -->
       <div class="rsvp-royal-bar" id="rsvp-toggle-bar">
         <div class="rsvp-bar-content">
           <h2 class="rsvp-bar-title">RSVP</h2>
-          <span class="rsvp-bar-hint">Tap to Confirm Your Presence</span>
-        </div>
-        <div class="rsvp-expand-icon">
-          <i data-lucide="chevron-down" id="rsvp-chevron"></i>
+          <span class="rsvp-bar-hint">Kindly Confirm Your Gracious Presence</span>
         </div>
       </div>
 
-      <!-- Responsive RSVP Form Container (Starts collapsed to match reference, expands on tap) -->
-      <div class="rsvp-form-container collapsed" id="rsvp-form-wrapper">
+      <!-- Responsive RSVP Form Container (DEFAULT OPEN) -->
+      <div class="rsvp-form-container" id="rsvp-form-wrapper">
         <form id="rsvp-form" class="rsvp-form" onsubmit="handleRsvpSubmit(event)">
           <div class="form-field">
             <label for="rsvp-name">Guest / Family Name <span class="req">*</span></label>
@@ -358,7 +372,7 @@
     </section>
 
     <!-- ============================================== -->
-    <!-- 7. HANGING SWING & KINDLY JOIN US SECTION -->
+    <!-- 8. HANGING SWING & KINDLY JOIN US SECTION -->
     <!-- Connected directly to the bottom of the RSVP section -->
     <!-- ============================================== -->
     <section class="section-hanging-swing anim-blur">
