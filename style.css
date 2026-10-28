@@ -930,17 +930,17 @@ button {
   overflow: visible;
 }
 
-/* Stacking sticky cards like Hanisha cards - 100% Solid & Opaque (No Transparency) */
+/* Stacking sticky cards - Inner main die-cut ornate arch cards (No outer box!) */
 .event-card-item {
   position: sticky;
-  margin-bottom: 40px;
+  margin-bottom: 35px;
   transform-origin: top center;
   will-change: transform;
-  background: #ffffff;
-  border-radius: 18px;
-  border: 1px solid rgba(212, 175, 55, 0.55);
-  box-shadow: 0 16px 36px rgba(19, 57, 121, 0.18), 0 2px 6px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
 }
 
 /* Consistent staggered sticky tops for physical card deck stacking */
@@ -963,17 +963,19 @@ button {
 .event-banner-wrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 18px;
-  overflow: hidden;
-  background: #ffffff;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
 }
 
 .event-banner-artwork {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
+  /* Natural die-cut arch contour shadow */
+  filter: drop-shadow(0 12px 28px rgba(19, 57, 121, 0.22));
+  transition: transform 0.3s ease;
 }
 
 /* Overlay for text inside the card image parchment (Matching Attachment 1) */
