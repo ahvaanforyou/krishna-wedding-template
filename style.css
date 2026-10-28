@@ -162,7 +162,11 @@ button {
   text-align: center;
   padding: 48px 0 0;
   margin-bottom: 24px;
-  background: url('assets/hero-bg.png') no-repeat center top / cover;
+  width: calc(100% + (2 * var(--container-pad)));
+  margin-left: calc(-1 * var(--container-pad));
+  margin-right: calc(-1 * var(--container-pad));
+  background: url('assets/hero-bg.png') no-repeat center top;
+  background-size: 100% 100%;
   overflow: hidden;
 }
 
@@ -941,11 +945,21 @@ button {
   padding-bottom: 40px;
 }
 
+.events-main-title {
+  font-family: var(--font-heading) !important;
+  font-size: 2.1rem !important;
+  font-weight: 500 !important;
+  color: var(--color-royal-blue) !important;
+  line-height: 1.2 !important;
+  margin-bottom: 8px;
+}
+
 .events-banner-stack {
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: visible;
+  padding-bottom: 35vh;
 }
 
 /* Stacking sticky cards - Inner main die-cut ornate arch cards (No outer box!) */
@@ -1075,6 +1089,8 @@ button {
    -------------------------------------------------------------------------- */
 .section-venue-map {
   margin-bottom: 45px;
+  position: relative;
+  z-index: 10;
 }
 
 /* Royal Blue & White Floral Crest Decoration */
@@ -1651,7 +1667,7 @@ button {
 /* ==========================================================================
    UNIFIED HEADINGS (Identical Font Family and Color Across the Entire Site)
    ========================================================================== */
-h1, h2, h3, h4,
+h1, h2:not(.rsvp-bar-title), h3, h4,
 .person-name,
 .intro-title,
 .section-title,
@@ -1659,12 +1675,26 @@ h1, h2, h3, h4,
 .member-name,
 .venue-name,
 .venue-title,
-.rsvp-title,
 .modal-title,
 .kindly-title,
 .event-custom-title {
   font-family: var(--font-heading) !important;
   color: var(--color-royal-blue) !important;
+}
+
+/* Explicit crisp white color for RSVP header on royal blue background */
+.rsvp-bar-title,
+.rsvp-royal-bar h2,
+.rsvp-royal-bar .rsvp-bar-title {
+  color: #ffffff !important;
+  font-family: var(--font-heading) !important;
+  font-size: 2.2rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 2.5px !important;
+}
+
+.rsvp-bar-hint {
+  color: var(--color-gold-light) !important;
 }
 
 /* ==========================================================================
