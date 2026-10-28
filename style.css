@@ -109,7 +109,7 @@ button {
   background-color: #F3F5FA;
   min-height: 100vh;
   box-shadow: 0 15px 50px rgba(19, 57, 121, 0.12), 0 0 0 1px rgba(212, 175, 55, 0.3);
-  padding: 0 var(--container-pad) 40px;
+  padding: 0 0 40px;
   position: relative;
   overflow-x: clip;
   overflow-y: visible;
@@ -117,16 +117,29 @@ button {
 
 @media (min-width: 600px) {
   :root {
-    --container-pad: 24px;
+    --container-pad: 20px;
   }
   body {
     padding: 30px 16px;
   }
   .invite-container {
     border-radius: 24px;
-    padding: 0 var(--container-pad) 50px;
+    padding: 0 0 50px;
     border: 2px solid rgba(212, 175, 55, 0.45);
   }
+}
+
+/* Sections that need container padding */
+.couple-intro-header,
+.section-scratch,
+.section-gallery,
+.section-events,
+.section-venue-map,
+.section-rsvp,
+.section-hanging-swing {
+  padding-left: var(--container-pad);
+  padding-right: var(--container-pad);
+  box-sizing: border-box;
 }
 
 /* --------------------------------------------------------------------------
@@ -162,10 +175,8 @@ button {
   text-align: center;
   padding: 48px 0 0;
   margin-bottom: 24px;
-  width: calc(100% + (2 * var(--container-pad)));
-  margin-left: calc(-1 * var(--container-pad));
-  margin-right: calc(-1 * var(--container-pad));
-  background: url('assets/hero-bg.png') no-repeat center top;
+  width: 100%;
+  background: #F3F5FA url('assets/hero-bg-blue.png') no-repeat center top;
   background-size: 100% 100%;
   overflow: hidden;
 }
@@ -252,7 +263,7 @@ button {
 
 .hero-divider .div-symbol {
   font-size: 0.85rem;
-  color: var(--color-gold-dark);
+  color: var(--color-royal-blue-light);
 }
 
 /* Hero Date */
@@ -411,9 +422,7 @@ button {
 .section-couple-member {
   position: relative;
   margin-bottom: 40px;
-  width: calc(100% + (2 * var(--container-pad)));
-  margin-left: calc(-1 * var(--container-pad));
-  margin-right: calc(-1 * var(--container-pad));
+  width: 100%;
   overflow: visible;
 }
 
@@ -423,40 +432,40 @@ button {
   align-items: flex-end;
   width: 100%;
   min-height: 290px;
-  padding: 0 var(--container-pad);
+  padding: 0;
   box-sizing: border-box;
 }
 
-/* Top Row: Bride Card on Right, Krishna Touching Left Phone Screen Border */
+/* Top Row: Groom Card on Right, Krishna Touching Left Phone Screen Border */
 .top-member-layout {
   justify-content: flex-end;
 }
 
-/* Bottom Row: Groom Card on Left, Radha Touching Right Phone Screen Border */
+/* Bottom Row: Bride Card on Left, Radha Touching Right Phone Screen Border */
 .bottom-member-layout {
   justify-content: flex-start;
 }
 
-/* Krishna touches EXACT physical left phone screen border */
+/* Krishna touches EXACT physical left phone screen border with ZERO gap */
 .krishna-peeking-wrap {
   position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 27%;
-  max-width: 95px;
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 28%;
+  max-width: 100px;
   z-index: 10;
   pointer-events: auto;
   display: flex;
   align-items: flex-end;
 }
 
-/* Radha touches EXACT physical right phone screen border */
+/* Radha touches EXACT physical right phone screen border with ZERO gap */
 .radha-peeking-wrap {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 27%;
-  max-width: 95px;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 28%;
+  max-width: 100px;
   z-index: 10;
   pointer-events: auto;
   display: flex;
@@ -488,12 +497,12 @@ button {
 }
 
 .top-member-layout .member-photo-card {
-  margin-right: 0;
+  margin-right: var(--container-pad);
   margin-left: auto;
 }
 
 .bottom-member-layout .member-photo-card {
-  margin-left: 0;
+  margin-left: var(--container-pad);
   margin-right: auto;
 }
 
@@ -939,10 +948,10 @@ button {
    Solid opaque cards with crisp, consistent physical deck stacking
    -------------------------------------------------------------------------- */
 .section-events {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   position: relative;
   overflow: visible;
-  padding-bottom: 40px;
+  padding-bottom: 0;
 }
 
 .events-main-title {
@@ -959,7 +968,7 @@ button {
   display: flex;
   flex-direction: column;
   overflow: visible;
-  padding-bottom: 35vh;
+  padding-bottom: 20px;
 }
 
 /* Stacking sticky cards - Inner main die-cut ornate arch cards (No outer box!) */
