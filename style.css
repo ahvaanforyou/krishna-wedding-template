@@ -610,20 +610,21 @@ button {
 .scratch-card-box {
   position: relative;
   width: 100%;
-  min-height: 195px;
   background: #143773;
   border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: 0 12px 30px rgba(19, 57, 121, 0.25);
-  border: 1px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 0 14px 35px rgba(19, 57, 121, 0.22);
+  border: 1.5px solid rgba(212, 175, 55, 0.55);
   user-select: none;
   -webkit-user-select: none;
+  touch-action: none !important;
 }
 
-/* Revealed Live Countdown Underneath */
+/* Revealed Live Countdown Underneath - Uses natural relative height */
 .scratch-under-content {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
   background: linear-gradient(135deg, #fffdf8, #f8f1de);
   padding: 18px 14px;
   display: flex;
@@ -720,6 +721,7 @@ button {
   z-index: 15;
   touch-action: none !important;
   -webkit-touch-callout: none;
+  display: block;
 }
 
 /* Label on top of canvas */
@@ -735,22 +737,23 @@ button {
   color: #ffffff;
   text-align: center;
   padding: 12px;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
 }
 
 .scratch-calligraphy {
   font-family: var(--font-script);
   font-size: 2.85rem;
   color: #ffffff;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
   line-height: 1.1;
 }
 
 .scratch-tap-guide {
   font-size: 0.72rem;
   letter-spacing: 0.5px;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.9);
   margin-top: 4px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
 
 .scratch-action-row {
@@ -762,19 +765,25 @@ button {
 .btn-scratch-reveal {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 6px 14px;
+  gap: 6px;
+  padding: 7px 18px;
   border-radius: var(--radius-full);
+  font-family: var(--font-sans);
   font-size: 0.76rem;
-  font-weight: 600;
+  font-weight: 700;
   background: rgba(19, 57, 121, 0.08);
   color: var(--color-royal-blue);
-  transition: all 0.2s ease;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
 .btn-scratch-reveal:hover {
   background: var(--color-royal-blue);
   color: #fff;
+  border-color: var(--color-royal-blue);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(19, 57, 121, 0.2);
 }
 
 /* --------------------------------------------------------------------------

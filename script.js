@@ -238,123 +238,238 @@ function initWeddingCountdown() {
 }
 
 /* ==========================================================================
-   4. INTERACTIVE SCRATCH CARD ENGINE
+   4. INTERACTIVE SCRATCH CARD ENGINE (SMOOTH & CONSISTENT)
+   - Real continuous stroke interpolation with round line caps (zero dotted gaps)
+   - Pointer events + pointer capture for seamless touch/desktop tracking
+   - ResizeObserver for 100% reliable sizing across mobile and desktop
+   - Exact pixel transparency analysis via getImageData (no false early triggers)
+   - Smooth celebratory dissolution with falling petals confetti
    ========================================================================== */
 function initScratchCard() {
   const canvas = document.getElementById('scratch-canvas');
+  const container = document.getElementById('scratch-container');
   const hintOverlay = document.getElementById('scratch-hint');
   const quickBtn = document.getElementById('btn-quick-reveal');
 
-  if (!canvas) return;
+  if (!canvas || !container) return;
 
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  if (!ctx) return;
+
   let isDrawing = false;
   let scratched = false;
-  let totalPixels = 0;
-  let scratchedPixels = 0;
+  let lastX = 0;
+  let lastY = 0;
+  const brushRadius = 26; // Smooth, generous scratch trail
+  let checkThrottleTimer = null;
 
   function setupCanvas() {
-    const rect = canvas.getBoundingClientRect();
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
+    if (scratched) return;
+    const rect = container.getBoundingClientRect();
+    const w = Math.round(rect.width);
+    const h = Math.round(rect.height);
+    if (w <= 0 || h <= 0) return;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.scale(dpr, dpr);
 
-    totalPixels = rect.width * rect.height;
-    scratchedPixels = 0;
-
-    const w = rect.width;
-    const h = rect.height;
-
+    // Auspicious Luxury Royal Blue & Gold Sheen Foil Background
     const grad = ctx.createLinearGradient(0, 0, w, h);
-    grad.addColorStop(0, '#133979');
-    grad.addColorStop(0.5, '#1e488f');
-    grad.addColorStop(1, '#0c2754');
+    grad.addColorStop(0, '#0f2957');
+    grad.addColorStop(0.35, '#173f82');
+    grad.addColorStop(0.7, '#113166');
+    grad.addColorStop(1, '#091c3d');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, w, h);
 
-    // Micro gold sparkle specs
+    // Metallic golden micro sparkles
     ctx.fillStyle = 'rgba(212, 175, 55, 0.45)';
-    for (let i = 0; i < 70; i++) {
-      const rx = Math.random() * w;
-      const ry = Math.random() * h;
-      const r = Math.random() * 2 + 0.5;
+    for (let i = 0; i < 65; i++) {
+      const rx = (Math.sin(i * 99) * 0.5 + 0.5) * w;
+      const ry = (Math.cos(i * 33) * 0.5 + 0.5) * h;
+      const r = (i % 3 === 0) ? 1.8 : 1.1;
       ctx.beginPath();
       ctx.arc(rx, ry, r, 0, Math.PI * 2);
       ctx.fill();
     }
 
-    ctx.strokeStyle = 'rgba(212, 175, 55, 0.6)';
+    // Ornate Double Gold Inset Borders
+    ctx.strokeStyle = 'rgba(212, 175, 55, 0.7)';
     ctx.lineWidth = 1.5;
     ctx.strokeRect(10, 10, w - 20, h - 20);
+
+    ctx.strokeStyle = 'rgba(212, 175, 55, 0.35)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([5, 4]);
+    ctx.strokeRect(14, 14, w - 28, h - 28);
+    ctx.setLineDash([]);
   }
 
-  setTimeout(setupCanvas, 100);
-  window.addEventListener('resize', () => {
-    if (!scratched) setupCanvas();
-  });
+  // Initial setup and ResizeObserver for 100% reliable sizing
+  setupCanvas();
+  let ro = null;
+  if (window.ResizeObserver) {
+    ro = new ResizeObserver(() => {
+      if (!scratched && !isDrawing) {
+        setupCanvas();
+      }
+    });
+    ro.observe(container);
+  }
+
+  // Re-check after window load, resize, and intro finish
+  window.addEventListener('load', () => setTimeout(setupCanvas, 150));
+  window.addEventListener('resize', () => { if (!scratched && !isDrawing) setupCanvas(); });
+  document.addEventListener('introFinished', () => setTimeout(setupCanvas, 80));
 
   function getPos(e) {
     const rect = canvas.getBoundingClientRect();
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
     return {
-      x: clientX - rect.left,
-      y: clientY - rect.top
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
     };
   }
 
-  function scratch(e) {
-    if (!isDrawing || scratched) return;
-    const pos = getPos(e);
+  function scratchStroke(x1, y1, x2, y2) {
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = brushRadius * 2;
 
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+
+    // Round cap at end
+    ctx.beginPath();
+    ctx.arc(x2, y2, brushRadius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function checkCompletion() {
+    if (scratched) return;
+    try {
+      const w = canvas.width;
+      const h = canvas.height;
+      if (w <= 0 || h <= 0) return;
+      const imgData = ctx.getImageData(0, 0, w, h);
+      const data = imgData.data;
+      const stride = 20; // sample every 20th pixel
+      let transparent = 0;
+      let samples = 0;
+
+      for (let i = 3; i < data.length; i += 4 * stride) {
+        samples++;
+        if (data[i] < 128) {
+          transparent++;
+        }
+      }
+
+      if (samples > 0 && (transparent / samples) >= 0.36) {
+        revealFullCard();
+      }
+    } catch (err) {}
+  }
+
+  function onPointerDown(e) {
+    if (scratched) return;
+    isDrawing = true;
+    try {
+      canvas.setPointerCapture(e.pointerId);
+    } catch (err) {}
+
+    const pos = getPos(e);
+    lastX = pos.x;
+    lastY = pos.y;
+
+    // Erase initial contact spot
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
-    ctx.arc(pos.x, pos.y, 28, 0, Math.PI * 2);
+    ctx.arc(lastX, lastY, brushRadius, 0, Math.PI * 2);
     ctx.fill();
 
     if (hintOverlay) {
       hintOverlay.style.opacity = '0';
     }
+  }
 
-    scratchedPixels += Math.PI * 28 * 28 * 0.4;
-    if (scratchedPixels / totalPixels > 0.35) {
-      revealFullCard();
+  function onPointerMove(e) {
+    if (!isDrawing || scratched) return;
+    const pos = getPos(e);
+    scratchStroke(lastX, lastY, pos.x, pos.y);
+    lastX = pos.x;
+    lastY = pos.y;
+
+    // Throttled completion check during drawing
+    if (!checkThrottleTimer) {
+      checkThrottleTimer = setTimeout(() => {
+        checkThrottleTimer = null;
+        checkCompletion();
+      }, 140);
     }
   }
+
+  function onPointerUp(e) {
+    if (!isDrawing) return;
+    isDrawing = false;
+    try {
+      canvas.releasePointerCapture(e.pointerId);
+    } catch (err) {}
+    checkCompletion();
+  }
+
+  canvas.addEventListener('pointerdown', onPointerDown);
+  canvas.addEventListener('pointermove', onPointerMove);
+  canvas.addEventListener('pointerup', onPointerUp);
+  canvas.addEventListener('pointercancel', onPointerUp);
+
+  // Prevent browser mobile gestures interfering with scratching
+  canvas.addEventListener('touchstart', (e) => { e.preventDefault(); }, { passive: false });
+  canvas.addEventListener('touchmove', (e) => { e.preventDefault(); }, { passive: false });
 
   function revealFullCard() {
     if (scratched) return;
     scratched = true;
-    canvas.style.transition = 'opacity 0.6s ease';
+    if (ro) {
+      try { ro.disconnect(); } catch (err) {}
+    }
+
+    canvas.style.transition = 'opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
     canvas.style.opacity = '0';
-    if (hintOverlay) hintOverlay.style.opacity = '0';
+
+    if (hintOverlay) {
+      hintOverlay.style.transition = 'opacity 0.4s ease';
+      hintOverlay.style.opacity = '0';
+    }
+
+    if (quickBtn) {
+      quickBtn.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+      quickBtn.style.opacity = '0';
+      quickBtn.style.transform = 'scale(0.9)';
+    }
+
+    // Confetti celebration
+    if (typeof fireConfetti === 'function') {
+      fireConfetti();
+    }
+
     setTimeout(() => {
       canvas.style.display = 'none';
       if (hintOverlay) hintOverlay.style.display = 'none';
-    }, 600);
-    fireConfetti();
+      if (quickBtn) quickBtn.style.display = 'none';
+    }, 750);
   }
 
-  canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
-  canvas.addEventListener('mousemove', scratch);
-  window.addEventListener('mouseup', () => { isDrawing = false; });
-
-  canvas.addEventListener('touchstart', (e) => {
-    isDrawing = true;
-    e.preventDefault();
-    scratch(e);
-  }, { passive: false });
-
-  canvas.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-    scratch(e);
-  }, { passive: false });
-
-  window.addEventListener('touchend', () => { isDrawing = false; });
-
   if (quickBtn) {
-    quickBtn.addEventListener('click', () => {
+    quickBtn.addEventListener('click', (e) => {
+      e.preventDefault();
       revealFullCard();
     });
   }
@@ -793,6 +908,8 @@ function initIntroExperience() {
       if (window.lucide) {
         window.lucide.createIcons();
       }
+      // Inform scratch canvas and other interactive components
+      document.dispatchEvent(new CustomEvent('introFinished'));
     }, 850);
   }
 
