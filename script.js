@@ -910,7 +910,7 @@ function initIntroExperience() {
       }
       // Inform scratch canvas and other interactive components
       document.dispatchEvent(new CustomEvent('introFinished'));
-    }, 850);
+    }, 1200);
   }
 
   // Tap button & Cover screen listeners
@@ -926,6 +926,13 @@ function initIntroExperience() {
       startExperience();
     });
   }
+
+  // Seamless dissolve as video reaches final moment
+  video.addEventListener('timeupdate', () => {
+    if (video.duration && video.currentTime >= video.duration - 0.45) {
+      finishExperience();
+    }
+  });
 
   // When video ends, smoothly fade out into main hero page
   video.addEventListener('ended', () => {
